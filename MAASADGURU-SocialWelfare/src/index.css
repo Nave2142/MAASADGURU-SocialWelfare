@@ -1,0 +1,6 @@
+/* Styles are handled via inline styles in JSX files as per requirements */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
