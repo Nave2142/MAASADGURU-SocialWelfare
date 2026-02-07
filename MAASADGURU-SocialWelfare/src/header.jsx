@@ -1,31 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Header = ({ setPage }) => {
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 1024);
+            if (window.innerWidth >= 1024) setMenuOpen(false);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const styles = {
-        topBar: {
-            background: '#f1f1f1',
-            padding: '5px 10%',
-            fontSize: '12px',
-            color: '#333',
-            display: 'flex',
-            justifyContent: 'flex-end',
-            gap: '20px',
-            borderBottom: '1px solid #ddd',
-        },
         mainHeader: {
-            padding: '15px 10%',
+            padding: isMobile ? '10px 5%' : '15px 10%',
             background: '#ffffff',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+            borderBottom: isMobile ? '1px solid #eee' : 'none',
         },
         logoSection: {
             display: 'flex',
             alignItems: 'center',
-            gap: '15px',
+            gap: isMobile ? '10px' : '15px',
         },
         logoImg: {
-            height: '60px',
+            height: isMobile ? '40px' : '60px',
             objectFit: 'contain',
         },
         logoTextContainer: {
@@ -34,7 +37,7 @@ const Header = ({ setPage }) => {
         },
         logoTitle: {
             margin: 0,
-            fontSize: '28px',
+            fontSize: isMobile ? '20px' : '28px',
             fontWeight: '700',
             color: '#1e3a8a',
             fontFamily: "'Outfit', sans-serif",
@@ -43,94 +46,128 @@ const Header = ({ setPage }) => {
         },
         logoSubtitle: {
             margin: 0,
-            fontSize: '14px',
+            fontSize: isMobile ? '10px' : '14px',
             color: '#065f46',
             fontWeight: '600',
             letterSpacing: '1px',
         },
         navBar: {
             background: '#1e3a8a',
-            padding: '0 10%',
-            display: 'flex',
+            padding: isMobile ? '0' : '0 10%',
+            display: isMobile ? (menuOpen ? 'block' : 'none') : 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+            position: isMobile ? 'absolute' : 'static',
+            top: isMobile ? '60px' : 'auto',
+            left: 0,
+            width: isMobile ? '100%' : 'auto',
+            zIndex: 1000,
+            boxShadow: isMobile ? '0 4px 6px rgba(0,0,0,0.1)' : 'none',
         },
         navList: {
             display: 'flex',
-            alignItems: 'center',
+            flexDirection: isMobile ? 'column' : 'row',
+            alignItems: isMobile ? 'stretch' : 'center',
+            width: isMobile ? '100%' : 'auto',
+            flexWrap: isMobile ? 'wrap' : 'nowrap',
         },
         navLink: {
             color: '#ffffff',
             textDecoration: 'none',
-            padding: '15px 20px',
+            padding: isMobile ? '15px 5%' : '15px 20px',
             fontSize: '14px',
             fontWeight: '500',
-            borderRight: '1px solid rgba(255,255,255,0.1)',
+            borderRight: !isMobile ? '1px solid rgba(255,255,255,0.1)' : 'none',
+            borderBottom: isMobile ? '1px solid rgba(255,255,255,0.1)' : 'none',
             transition: 'background 0.3s',
             fontFamily: "'Inter', sans-serif",
             cursor: 'pointer',
             background: 'none',
             border: 'none',
+            textAlign: 'left',
+            display: isMobile ? 'block' : 'inline-block',
+            width: isMobile ? '100%' : 'auto',
+            whiteSpace: 'nowrap',
+            flexShrink: 0,
         },
         donateBtn: {
             background: '#f59e0b',
             color: '#000',
             border: 'none',
-            padding: '10px 20px',
-            fontSize: '14px',
+            padding: isMobile ? '8px 15px' : '10px 20px',
+            fontSize: isMobile ? '12px' : '14px',
             fontWeight: '700',
             cursor: 'pointer',
             borderRadius: '4px',
-            marginLeft: '20px',
             fontFamily: "'Inter', sans-serif",
+            display: isMobile ? 'none' : 'block',
+        },
+        mobileDonateBtn: {
+            background: '#f59e0b',
+            color: '#000',
+            border: 'none',
+            padding: '15px 5%',
+            fontSize: '14px',
+            fontWeight: '700',
+            cursor: 'pointer',
+            fontFamily: "'Inter', sans-serif",
+            display: isMobile ? 'block' : 'none',
+            textAlign: 'left',
+            width: '100%',
+        },
+        menuToggle: {
+            display: isMobile ? 'block' : 'none',
+            background: 'none',
+            border: 'none',
+            fontSize: '24px',
+            color: '#1e3a8a',
+            cursor: 'pointer',
+            padding: '5px',
+        }
+    };
+
+    const handleLinkClick = (page, hash) => {
+        setPage(page);
+        setMenuOpen(false);
+        if (hash) {
+            window.location.hash = hash;
+        } else {
+            window.history.pushState(null, null, ' ');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
     return (
-        <header>
-            {/* Top Utility Bar */}
-            {/* <div style={styles.topBar}>
-                <span>Screen Reader Access</span>
-                <span>A-</span>
-                <span>A</span>
-                <span>A+</span>
-            </div> */}
-
-            {/* Main Brand Header */}
+        <header style={{ position: 'relative' }}>
             <div style={styles.mainHeader}>
-                <div style={styles.logoSection}>
+                <div style={styles.logoSection} onClick={() => handleLinkClick('home')}>
                     <img src="/favicon.png" alt="Logo" style={styles.logoImg} />
                     <div style={styles.logoTextContainer}>
                         <h1 style={styles.logoTitle}>MAASADGURU</h1>
                         <p style={styles.logoSubtitle}>SOCIAL WELFARE ORGANIZATION</p>
                     </div>
                 </div>
-                <button onClick={() => setPage('donate')} style={styles.donateBtn}>DONATE</button>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                    <button onClick={() => setPage('donate')} style={styles.donateBtn}>DONATE</button>
+                    <button style={styles.menuToggle} onClick={() => setMenuOpen(!menuOpen)}>
+                        {menuOpen ? '✕' : '☰'}
+                    </button>
+                </div>
             </div>
 
-            {/* Navigation Bar */}
             <nav style={styles.navBar}>
                 <div style={styles.navList}>
-                    <button
-                        onClick={() => {
-                            setPage('home');
-                            window.history.pushState(null, null, ' ');
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }}
-                        style={styles.navLink}
-                    >
-                        Home
-                    </button>
-                    <a href="#about" onClick={() => setPage('home')} style={styles.navLink}>About Us</a>
-                    <a href="#features" onClick={() => setPage('home')} style={styles.navLink}>NGO Directory</a>
-                    <a href="#statistics" onClick={() => setPage('home')} style={styles.navLink}>Statistics</a>
-                    <a href="#services" onClick={() => setPage('home')} style={styles.navLink}>NGO Resources</a>
-                    <a href="#leadership" onClick={() => setPage('home')} style={styles.navLink}>Leadership</a>
-                    <a href="#contact" onClick={() => setPage('home')} style={styles.navLink}>Contact Us</a>
+                    <button onClick={() => handleLinkClick('home')} style={styles.navLink}>Home</button>
+                    <button onClick={() => handleLinkClick('home', '#about')} style={styles.navLink}>About Us</button>
+                    <button onClick={() => handleLinkClick('home', '#features')} style={styles.navLink}>NGO Directory</button>
+                    <button onClick={() => handleLinkClick('home', '#statistics')} style={styles.navLink}>Statistics</button>
+                    <button onClick={() => handleLinkClick('home', '#services')} style={styles.navLink}>NGO Resources</button>
+                    <button onClick={() => handleLinkClick('home', '#leadership')} style={styles.navLink}>Leadership</button>
+                    <button onClick={() => handleLinkClick('home', '#contact')} style={styles.navLink}>Contact Us</button>
+                    <button onClick={() => { setPage('donate'); setMenuOpen(false); }} style={styles.mobileDonateBtn}>DONATE NOW</button>
                 </div>
-
             </nav>
-
         </header>
     );
 };

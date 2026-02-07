@@ -1,37 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Donate = ({ onBack }) => {
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const styles = {
         container: {
-            padding: '60px 20px',
+            padding: isMobile ? '40px 15px' : '60px 20px',
             textAlign: 'center',
-            minHeight: '60vh',
+            minHeight: isMobile ? 'auto' : '60vh',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: '#ffffff',
             borderRadius: '8px',
-            border: '1px solid #e5e7eb',
-            boxShadow: '0 4px 6px rgba(0,0,0,0.05)',
+            boxShadow: isMobile ? 'none' : '0 4px 6px rgba(0,0,0,0.05)',
         },
         title: {
-            fontSize: '32px',
+            fontSize: isMobile ? '24px' : '32px',
             color: '#1e3a8a',
             fontFamily: "'Outfit', sans-serif",
-            marginBottom: '20px',
+            marginBottom: '15px',
             textTransform: 'uppercase',
         },
         message: {
-            fontSize: '18px',
+            fontSize: isMobile ? '15px' : '18px',
             color: '#4b5563',
             lineHeight: '1.6',
             maxWidth: '600px',
-            marginBottom: '40px',
+            marginBottom: '30px',
         },
         icon: {
-            fontSize: '64px',
-            marginBottom: '20px',
+            fontSize: isMobile ? '48px' : '64px',
+            marginBottom: '15px',
             color: '#f59e0b',
         },
         button: {
@@ -44,6 +51,7 @@ const Donate = ({ onBack }) => {
             fontWeight: '600',
             cursor: 'pointer',
             transition: 'background 0.3s',
+            width: isMobile ? '100%' : 'auto',
         }
     };
 

@@ -1,50 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Footer = () => {
+    const [width, setWidth] = useState(window.innerWidth);
+    const isMobile = width < 768;
+    const isTablet = width >= 768 && width < 1024;
+
+    useEffect(() => {
+        const handleResize = () => setWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const styles = {
         footer: {
-            background: '#1b263b', // Dark blue background
+            background: '#1b263b',
             color: '#e2e8f0',
             fontFamily: "'Inter', sans-serif",
             fontSize: '13px',
-            borderTop: '5px solid #f59e0b', // Accent color top border
+            borderTop: '5px solid #f59e0b',
         },
         topSection: {
-            padding: '40px 10%',
+            padding: isMobile ? '30px 5%' : '40px 10%',
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '30px',
+            gridTemplateColumns: isMobile ? '1fr' : (isTablet ? '1fr 1fr' : 'repeat(4, 1fr)'),
+            gap: isMobile ? '25px' : '30px',
             borderBottom: '1px solid #334155',
         },
         footerCol: {
             display: 'flex',
             flexDirection: 'column',
-            gap: '15px',
+            gap: '12px',
         },
         footerTitle: {
             color: '#ffffff',
             fontSize: '16px',
             fontWeight: '700',
-            marginBottom: '10px',
+            marginBottom: '8px',
             textTransform: 'uppercase',
+            borderBottom: isMobile ? '1px solid #334155' : 'none',
+            paddingBottom: isMobile ? '5px' : '0',
         },
         footerLink: {
             color: '#cbd5e1',
             textDecoration: 'none',
-            marginBottom: '8px',
+            marginBottom: '5px',
             display: 'block',
             transition: 'color 0.2s',
         },
         bottomSection: {
-            padding: '20px 10%',
+            padding: '20px 5%',
             textAlign: 'center',
             background: '#0f172a',
             color: '#94a3b8',
-            fontSize: '12px',
+            fontSize: '11px',
         },
         govtText: {
             marginTop: '10px',
             fontStyle: 'italic',
+            opacity: 0.8,
         }
     };
 
@@ -77,7 +90,7 @@ const Footer = () => {
 
                 <div style={styles.footerCol}>
                     <h4 style={styles.footerTitle}>Contact</h4>
-                    <p style={{ margin: '0 0 10px' }}>
+                    <p style={{ margin: '0 0 10px', lineHeight: '1.5' }}>
                         <strong>Maasadguru Social Services</strong><br />
                         Hyderabad, Telangana<br />
                         India
@@ -87,9 +100,9 @@ const Footer = () => {
             </div>
 
             <div style={styles.bottomSection}>
-                <div>Content Owned, Maintained and Updated by Maasadguru Social Welfare Organization</div>
+                <div style={{ marginBottom: '10px' }}>Content Owned, Maintained and Updated by Maasadguru Social Welfare Organization</div>
                 <div style={styles.govtText}>Modeled after National Standards for NGO Transparency</div>
-                <div style={{ marginTop: '15px' }}>© 2026 Maasadguru. All Rights Reserved.</div>
+                <div style={{ marginTop: '15px', color: '#64748b' }}>© 2026 Maasadguru. All Rights Reserved.</div>
             </div>
         </footer>
     );

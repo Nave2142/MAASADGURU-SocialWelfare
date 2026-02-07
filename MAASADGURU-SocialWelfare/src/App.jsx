@@ -4,6 +4,16 @@ import Footer from './footer';
 import Donate from './donate';
 
 const App = () => {
+  const [width, setWidth] = useState(window.innerWidth);
+  const isMobile = width < 768;
+  const isTablet = width >= 768 && width < 1024;
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const images = [
     {
       url: "https://plus.unsplash.com/premium_photo-1682092585257-58d1c813d9b4?q=80&w=1170&auto=format&fit=crop",
@@ -37,20 +47,16 @@ const App = () => {
     return () => clearInterval(timer);
   }, [images.length]);
 
-  // Handle scrolling to sections when navigating from other pages or clicking links
   useEffect(() => {
     if (currentPage === 'home' && window.location.hash) {
       const id = window.location.hash.replace('#', '');
       const element = document.getElementById(id);
       if (element) {
-        // Small timeout to ensure DOM has rendered
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth' });
         }, 100);
       }
-    } else if (currentPage === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (currentPage === 'donate') {
+    } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [currentPage]);
@@ -63,30 +69,31 @@ const App = () => {
       minHeight: '100vh',
     },
     heroSection: {
-      height: '250px',
+      height: isMobile ? '180px' : '250px',
       background: 'linear-gradient(rgba(30, 58, 138, 0.9), rgba(30, 58, 138, 0.9)), url("https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop") center/cover no-repeat',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       color: '#fff',
       textAlign: 'center',
+      padding: '0 20px',
     },
     mainContainer: {
       maxWidth: '1200px',
       margin: '0 auto 40px',
-      padding: '0 20px',
+      padding: isMobile ? '0 10px' : '0 20px',
     },
     contentWrapper: {
       background: '#fff',
-      padding: '40px',
-      marginTop: '-40px',
+      padding: isMobile ? '20px' : '40px',
+      marginTop: isMobile ? '-20px' : '-40px',
       border: '1px solid #e5e7eb',
       boxShadow: '0 4px 6px rgba(0,0,0,0.05)',
       position: 'relative',
       zIndex: 2,
     },
     sectionHeader: {
-      fontSize: '24px',
+      fontSize: isMobile ? '20px' : '24px',
       color: '#1e3a8a',
       borderBottom: '2px solid #f59e0b',
       paddingBottom: '8px',
@@ -98,7 +105,7 @@ const App = () => {
     sliderContainer: {
       position: 'relative',
       width: '100%',
-      height: '450px',
+      height: isMobile ? '250px' : '450px',
       overflow: 'hidden',
       borderRadius: '8px',
       marginBottom: '40px',
@@ -120,13 +127,13 @@ const App = () => {
       background: 'rgba(0, 0, 0, 0.6)',
       color: '#fff',
       width: '100%',
-      padding: '20px 40px',
+      padding: isMobile ? '15px' : '20px 40px',
       backdropFilter: 'blur(5px)',
     },
     grid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-      gap: '25px',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: isMobile ? '15px' : '25px',
       marginBottom: '40px',
     },
     featureCard: {
@@ -139,17 +146,18 @@ const App = () => {
     highlightBox: {
       background: '#f0fdf4',
       borderLeft: '5px solid #10b981',
-      padding: '25px',
+      padding: isMobile ? '15px' : '25px',
       marginBottom: '40px',
     },
     serviceItem: {
       display: 'flex',
-      gap: '20px',
-      padding: '20px',
+      flexDirection: isMobile ? 'column' : 'row',
+      gap: isMobile ? '10px' : '20px',
+      padding: isMobile ? '15px' : '20px',
       background: '#f8fafc',
       border: '1px solid #e2e8f0',
       marginBottom: '15px',
-      alignItems: 'center',
+      alignItems: isMobile ? 'flex-start' : 'center',
     },
     serviceIcon: {
       fontSize: '24px',
@@ -168,15 +176,14 @@ const App = () => {
     <>
       <div style={styles.heroSection}>
         <div>
-          <h1 style={{ fontSize: '42px', margin: '0 0 10px 0', fontFamily: "'Outfit', sans-serif" }}>MAASADGURU</h1>
-          <p style={{ fontSize: '18px', opacity: 0.9 }}>Pure Hearts. Impactful Lives.</p>
+          <h1 style={{ fontSize: isMobile ? '28px' : (isTablet ? '34px' : '42px'), margin: '0 0 10px 0', fontFamily: "'Outfit', sans-serif" }}>MAASADGURU</h1>
+          <p style={{ fontSize: isMobile ? '14px' : '18px', opacity: 0.9 }}>Pure Hearts. Impactful Lives.</p>
         </div>
       </div>
 
       <div style={styles.mainContainer}>
         <div style={styles.contentWrapper}>
 
-          {/* Slider Section */}
           <section id="gallery">
             <h2 style={styles.sectionHeader}>Impact Gallery</h2>
             <div style={styles.sliderContainer}>
@@ -191,19 +198,18 @@ const App = () => {
                   }}
                 >
                   <div style={styles.slideCaption}>
-                    <h3 style={{ margin: '0 0 5px 0', fontSize: '20px' }}>{img.title}</h3>
-                    <p style={{ margin: 0, fontSize: '14px', opacity: 0.9 }}>{img.desc}</p>
+                    <h3 style={{ margin: '0 0 5px 0', fontSize: isMobile ? '16px' : '20px' }}>{img.title}</h3>
+                    <p style={{ margin: 0, fontSize: isMobile ? '12px' : '14px', opacity: 0.9 }}>{img.desc}</p>
                   </div>
                 </div>
               ))}
-              {/* Slider Dots */}
-              <div style={{ position: 'absolute', bottom: '20px', right: '40px', zIndex: 2, display: 'flex', gap: '10px' }}>
+              <div style={{ position: 'absolute', bottom: '15px', right: isMobile ? '15px' : '40px', zIndex: 2, display: 'flex', gap: '8px' }}>
                 {images.map((_, index) => (
                   <div
                     key={index}
                     style={{
-                      width: '10px',
-                      height: '10px',
+                      width: '8px',
+                      height: '8px',
                       borderRadius: '50%',
                       background: index === currentIndex ? '#f59e0b' : 'rgba(255,255,255,0.5)',
                       cursor: 'pointer'
@@ -215,13 +221,12 @@ const App = () => {
             </div>
           </section>
 
-          {/* Statistics Section */}
           <section id="statistics" style={{ marginBottom: '40px' }}>
             <h2 style={styles.sectionHeader}>Impact Statistics</h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '20px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gap: isMobile ? '10px' : '20px',
             }}>
               {[
                 { label: 'Families Supported', value: '1,500+' },
@@ -230,30 +235,28 @@ const App = () => {
                 { label: 'Projects Completed', value: '120+' }
               ].map((stat, idx) => (
                 <div key={idx} style={{
-                  padding: '20px',
+                  padding: '15px',
                   background: '#f8fafc',
                   border: '1px solid #e2e8f0',
                   textAlign: 'center',
                   borderRadius: '4px'
                 }}>
-                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#1e3a8a', marginBottom: '5px' }}>{stat.value}</div>
-                  <div style={{ fontSize: '13px', color: '#64748b', fontWeight: '600' }}>{stat.label}</div>
+                  <div style={{ fontSize: isMobile ? '18px' : '24px', fontWeight: 'bold', color: '#1e3a8a', marginBottom: '5px' }}>{stat.value}</div>
+                  <div style={{ fontSize: isMobile ? '11px' : '13px', color: '#64748b', fontWeight: '600' }}>{stat.label}</div>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* Organization Mission */}
           <section id="about">
             <h2 style={styles.sectionHeader}>Social Service Goals</h2>
             <div style={styles.highlightBox}>
-              <p style={{ margin: 0, fontSize: '16px', color: '#065f46', lineHeight: '1.6' }}>
+              <p style={{ margin: 0, fontSize: isMobile ? '14px' : '16px', color: '#065f46', lineHeight: '1.6' }}>
                 Maasadguru Social Services is dedicated to bringing transparency and efficiency to the social sector. Our core focus is on educational reform, healthcare accessibility, and environmental sustainability in rural and underserved urban areas.
               </p>
             </div>
           </section>
 
-          {/* Core NGO Features */}
           <section id="features">
             <h2 style={styles.sectionHeader}>NGO Operational Features</h2>
             <div style={styles.grid}>
@@ -276,10 +279,8 @@ const App = () => {
             </div>
           </section>
 
-          {/* Social Service Programs */}
           <section id="services" style={{ marginBottom: '40px' }}>
             <h2 style={styles.sectionHeader}>Our Social Services</h2>
-
             <div style={styles.serviceItem}>
               <div style={styles.serviceIcon}>🎓</div>
               <div>
@@ -287,7 +288,6 @@ const App = () => {
                 <p style={{ margin: 0, fontSize: '14px', color: '#666' }}>Providing solar-powered digital classroom kits and mobile learning hubs for remote villages.</p>
               </div>
             </div>
-
             <div style={styles.serviceItem}>
               <div style={styles.serviceIcon}>🏥</div>
               <div>
@@ -295,7 +295,6 @@ const App = () => {
                 <p style={{ margin: 0, fontSize: '14px', color: '#666' }}>Connecting medical professionals directly with underserved communities via our collaborative networks.</p>
               </div>
             </div>
-
             <div style={styles.serviceItem}>
               <div style={styles.serviceIcon}>🌱</div>
               <div>
@@ -305,65 +304,24 @@ const App = () => {
             </div>
           </section>
 
-          {/* Leadership Section */}
           <section id="leadership" style={{ marginBottom: '40px' }}>
             <h2 style={styles.sectionHeader}>Our Leadership</h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
               gap: '20px',
             }}>
-              <div style={{
-                padding: '25px',
-                background: '#ffffff',
-                border: '1px solid #e2e8f0',
-                borderRadius: '4px',
-                textAlign: 'center',
-                borderTop: '4px solid #1e3a8a'
-              }}>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  backgroundColor: '#eff6ff',
-                  borderRadius: '50%',
-                  margin: '0 auto 15px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '32px'
-                }}>👤</div>
-                <h3 style={{ margin: '0 0 5px 0', fontSize: '18px', color: '#1e3a8a' }}>Jatothu Ravi</h3>
-                <p style={{ margin: 0, fontSize: '14px', color: '#065f46', fontWeight: 'bold' }}>Founder</p>
-                <p style={{ marginTop: '10px', fontSize: '13px', color: '#666', lineHeight: '1.5' }}>
-                  Leading the vision for social equity and transparent welfare systems.
-                </p>
-              </div>
-
-              <div style={{
-                padding: '25px',
-                background: '#ffffff',
-                border: '1px solid #e2e8f0',
-                borderRadius: '4px',
-                textAlign: 'center',
-                borderTop: '4px solid #10b981'
-              }}>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  backgroundColor: '#f0fdf4',
-                  borderRadius: '50%',
-                  margin: '0 auto 15px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '32px'
-                }}>👤</div>
-                <h3 style={{ margin: '0 0 5px 0', fontSize: '18px', color: '#1e3a8a' }}>Gugulothu Naveen</h3>
-                <p style={{ margin: 0, fontSize: '14px', color: '#065f46', fontWeight: 'bold' }}>Co-Founder</p>
-                <p style={{ marginTop: '10px', fontSize: '13px', color: '#666', lineHeight: '1.5' }}>
-                  Overseeing technical architecture and field operations for maximum impact.
-                </p>
-              </div>
+              {[
+                { name: 'Jatothu Ravi', role: 'Founder', desc: 'Leading the vision for social equity and transparent welfare systems.', color: '#1e3a8a', bg: '#eff6ff' },
+                { name: 'Gugulothu Naveen', role: 'Co-Founder', desc: 'Overseeing technical architecture and field operations for maximum impact.', color: '#10b981', bg: '#f0fdf4' }
+              ].map((leader, i) => (
+                <div key={i} style={{ padding: '25px', background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '4px', textAlign: 'center', borderTop: `4px solid ${leader.color}` }}>
+                  <div style={{ width: '80px', height: '80px', backgroundColor: leader.bg, borderRadius: '50%', margin: '0 auto 15px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '32px' }}>👤</div>
+                  <h3 style={{ margin: '0 0 5px 0', fontSize: '18px', color: '#1e3a8a' }}>{leader.name}</h3>
+                  <p style={{ margin: 0, fontSize: '14px', color: '#065f46', fontWeight: 'bold' }}>{leader.role}</p>
+                  <p style={{ marginTop: '10px', fontSize: '13px', color: '#666', lineHeight: '1.5' }}>{leader.desc}</p>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -374,7 +332,7 @@ const App = () => {
 
   const renderDonate = () => (
     <div style={styles.mainContainer}>
-      <div style={{ ...styles.contentWrapper, marginTop: '40px' }}>
+      <div style={{ ...styles.contentWrapper, marginTop: isMobile ? '20px' : '40px' }}>
         <Donate onBack={() => setCurrentPage('home')} />
       </div>
     </div>
@@ -383,9 +341,7 @@ const App = () => {
   return (
     <div style={styles.container}>
       <Header setPage={setCurrentPage} />
-
       {currentPage === 'home' ? renderHome() : renderDonate()}
-
       <Footer />
     </div>
   );
