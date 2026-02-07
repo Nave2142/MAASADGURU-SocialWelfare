@@ -49,7 +49,7 @@ const Footer = () => {
     };
 
     return (
-        <footer style={styles.footer}>
+        <footer id="contact" style={styles.footer}>
             <div style={styles.topSection}>
                 <div style={styles.footerCol}>
                     <h4 style={styles.footerTitle}>About Portal</h4>

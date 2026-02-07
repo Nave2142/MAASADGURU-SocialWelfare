@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header = () => {
+const Header = ({ setPage }) => {
     const styles = {
         topBar: {
             background: '#f1f1f1',
@@ -53,6 +53,11 @@ const Header = () => {
             padding: '0 10%',
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'space-between',
+        },
+        navList: {
+            display: 'flex',
+            alignItems: 'center',
         },
         navLink: {
             color: '#ffffff',
@@ -63,18 +68,33 @@ const Header = () => {
             borderRight: '1px solid rgba(255,255,255,0.1)',
             transition: 'background 0.3s',
             fontFamily: "'Inter', sans-serif",
+            cursor: 'pointer',
+            background: 'none',
+            border: 'none',
+        },
+        donateBtn: {
+            background: '#f59e0b',
+            color: '#000',
+            border: 'none',
+            padding: '10px 20px',
+            fontSize: '14px',
+            fontWeight: '700',
+            cursor: 'pointer',
+            borderRadius: '4px',
+            marginLeft: '20px',
+            fontFamily: "'Inter', sans-serif",
         }
     };
 
     return (
         <header>
             {/* Top Utility Bar */}
-            <div style={styles.topBar}>
+            {/* <div style={styles.topBar}>
                 <span>Screen Reader Access</span>
                 <span>A-</span>
                 <span>A</span>
                 <span>A+</span>
-            </div>
+            </div> */}
 
             {/* Main Brand Header */}
             <div style={styles.mainHeader}>
@@ -85,17 +105,32 @@ const Header = () => {
                         <p style={styles.logoSubtitle}>SOCIAL WELFARE ORGANIZATION</p>
                     </div>
                 </div>
+                <button onClick={() => setPage('donate')} style={styles.donateBtn}>DONATE</button>
             </div>
 
             {/* Navigation Bar */}
             <nav style={styles.navBar}>
-                <a href="#" style={styles.navLink}>Home</a>
-                <a href="#about" style={styles.navLink}>About Us</a>
-                <a href="#programs" style={styles.navLink}>Programs</a>
-                <a href="#statistics" style={styles.navLink}>Statistics</a>
-                <a href="#founders" style={styles.navLink}>Leadership</a>
-                <a href="#contact" style={styles.navLink}>Contact</a>
+                <div style={styles.navList}>
+                    <button
+                        onClick={() => {
+                            setPage('home');
+                            window.history.pushState(null, null, ' ');
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                        style={styles.navLink}
+                    >
+                        Home
+                    </button>
+                    <a href="#about" onClick={() => setPage('home')} style={styles.navLink}>About Us</a>
+                    <a href="#features" onClick={() => setPage('home')} style={styles.navLink}>NGO Directory</a>
+                    <a href="#statistics" onClick={() => setPage('home')} style={styles.navLink}>Statistics</a>
+                    <a href="#services" onClick={() => setPage('home')} style={styles.navLink}>NGO Resources</a>
+                    <a href="#leadership" onClick={() => setPage('home')} style={styles.navLink}>Leadership</a>
+                    <a href="#contact" onClick={() => setPage('home')} style={styles.navLink}>Contact Us</a>
+                </div>
+
             </nav>
+
         </header>
     );
 };

@@ -1,4 +1,7 @@
-/* Styles are handled via inline styles in JSX files as per requirements */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;

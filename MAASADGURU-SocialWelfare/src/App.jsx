@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './header';
 import Footer from './footer';
+import Donate from './donate';
 
 const App = () => {
   const images = [
@@ -27,6 +28,7 @@ const App = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentPage, setCurrentPage] = useState('home');
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -34,6 +36,24 @@ const App = () => {
     }, 5000);
     return () => clearInterval(timer);
   }, [images.length]);
+
+  // Handle scrolling to sections when navigating from other pages or clicking links
+  useEffect(() => {
+    if (currentPage === 'home' && window.location.hash) {
+      const id = window.location.hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        // Small timeout to ensure DOM has rendered
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    } else if (currentPage === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (currentPage === 'donate') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [currentPage]);
 
   const styles = {
     container: {
@@ -144,10 +164,8 @@ const App = () => {
     }
   };
 
-  return (
-    <div style={styles.container}>
-      <Header />
-
+  const renderHome = () => (
+    <>
       <div style={styles.heroSection}>
         <div>
           <h1 style={{ fontSize: '42px', margin: '0 0 10px 0', fontFamily: "'Outfit', sans-serif" }}>MAASADGURU</h1>
@@ -194,6 +212,34 @@ const App = () => {
                   />
                 ))}
               </div>
+            </div>
+          </section>
+
+          {/* Statistics Section */}
+          <section id="statistics" style={{ marginBottom: '40px' }}>
+            <h2 style={styles.sectionHeader}>Impact Statistics</h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gap: '20px',
+            }}>
+              {[
+                { label: 'Families Supported', value: '1,500+' },
+                { label: 'Villages Reached', value: '45' },
+                { label: 'Volunteers Enrolled', value: '500+' },
+                { label: 'Projects Completed', value: '120+' }
+              ].map((stat, idx) => (
+                <div key={idx} style={{
+                  padding: '20px',
+                  background: '#f8fafc',
+                  border: '1px solid #e2e8f0',
+                  textAlign: 'center',
+                  borderRadius: '4px'
+                }}>
+                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#1e3a8a', marginBottom: '5px' }}>{stat.value}</div>
+                  <div style={{ fontSize: '13px', color: '#64748b', fontWeight: '600' }}>{stat.label}</div>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -259,8 +305,86 @@ const App = () => {
             </div>
           </section>
 
+          {/* Leadership Section */}
+          <section id="leadership" style={{ marginBottom: '40px' }}>
+            <h2 style={styles.sectionHeader}>Our Leadership</h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              gap: '20px',
+            }}>
+              <div style={{
+                padding: '25px',
+                background: '#ffffff',
+                border: '1px solid #e2e8f0',
+                borderRadius: '4px',
+                textAlign: 'center',
+                borderTop: '4px solid #1e3a8a'
+              }}>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  backgroundColor: '#eff6ff',
+                  borderRadius: '50%',
+                  margin: '0 auto 15px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '32px'
+                }}>👤</div>
+                <h3 style={{ margin: '0 0 5px 0', fontSize: '18px', color: '#1e3a8a' }}>Jatothu Ravi</h3>
+                <p style={{ margin: 0, fontSize: '14px', color: '#065f46', fontWeight: 'bold' }}>Founder</p>
+                <p style={{ marginTop: '10px', fontSize: '13px', color: '#666', lineHeight: '1.5' }}>
+                  Leading the vision for social equity and transparent welfare systems.
+                </p>
+              </div>
+
+              <div style={{
+                padding: '25px',
+                background: '#ffffff',
+                border: '1px solid #e2e8f0',
+                borderRadius: '4px',
+                textAlign: 'center',
+                borderTop: '4px solid #10b981'
+              }}>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  backgroundColor: '#f0fdf4',
+                  borderRadius: '50%',
+                  margin: '0 auto 15px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '32px'
+                }}>👤</div>
+                <h3 style={{ margin: '0 0 5px 0', fontSize: '18px', color: '#1e3a8a' }}>Gugulothu Naveen</h3>
+                <p style={{ margin: 0, fontSize: '14px', color: '#065f46', fontWeight: 'bold' }}>Co-Founder</p>
+                <p style={{ marginTop: '10px', fontSize: '13px', color: '#666', lineHeight: '1.5' }}>
+                  Overseeing technical architecture and field operations for maximum impact.
+                </p>
+              </div>
+            </div>
+          </section>
+
         </div>
       </div>
+    </>
+  );
+
+  const renderDonate = () => (
+    <div style={styles.mainContainer}>
+      <div style={{ ...styles.contentWrapper, marginTop: '40px' }}>
+        <Donate onBack={() => setCurrentPage('home')} />
+      </div>
+    </div>
+  );
+
+  return (
+    <div style={styles.container}>
+      <Header setPage={setCurrentPage} />
+
+      {currentPage === 'home' ? renderHome() : renderDonate()}
 
       <Footer />
     </div>
