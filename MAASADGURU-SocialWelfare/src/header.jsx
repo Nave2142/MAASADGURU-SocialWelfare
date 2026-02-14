@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
-const Header = ({ setPage }) => {
+const Header = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
     const [menuOpen, setMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
@@ -43,6 +45,7 @@ const Header = ({ setPage }) => {
             alignItems: 'center',
             gap: isMobile ? '12px' : '18px',
             cursor: 'pointer',
+            textDecoration: 'none'
         },
         logoImg: {
             height: isMobile ? '45px' : '68px',
@@ -103,13 +106,15 @@ const Header = ({ setPage }) => {
             transition: 'background 0.3s',
             fontFamily: "'Inter', sans-serif",
             cursor: 'pointer',
-            background: 'none',
-            border: 'none',
             textAlign: 'left',
             display: isMobile ? 'block' : 'inline-block',
             width: isMobile ? '100%' : 'auto',
             whiteSpace: 'nowrap',
             flexShrink: 0,
+        },
+        activeLink: {
+            background: 'rgba(255,255,255,0.1)',
+            color: '#f59e0b',
         },
         donateBtn: {
             background: '#f59e0b',
@@ -135,6 +140,7 @@ const Header = ({ setPage }) => {
             display: isMobile ? 'block' : 'none',
             textAlign: 'left',
             width: '100%',
+            textDecoration: 'none'
         },
         menuToggle: {
             display: isMobile ? 'block' : 'none',
@@ -147,15 +153,8 @@ const Header = ({ setPage }) => {
         }
     };
 
-    const handleLinkClick = (page, hash) => {
-        setPage(page);
+    const handleMenuClick = () => {
         setMenuOpen(false);
-        if (hash) {
-            window.location.hash = hash;
-        } else {
-            window.history.pushState(null, null, ' ');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
     };
 
     return (
@@ -170,16 +169,16 @@ const Header = ({ setPage }) => {
                 </div>
             </div>
             <div style={styles.mainHeader}>
-                <div style={styles.logoSection} onClick={() => handleLinkClick('home')}>
+                <NavLink to="/" style={styles.logoSection} onClick={handleMenuClick}>
                     <img src="/favicon1.png" alt="Logo" style={styles.logoImg} className="logo-hover" />
                     <div style={styles.logoTextContainer}>
                         <h1 style={styles.logoTitle}>MAASADGURU</h1>
                         <p style={styles.logoSubtitle}>Social Service</p>
                     </div>
-                </div>
+                </NavLink>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                    <button onClick={() => setPage('donate')} style={styles.donateBtn}>DONATE</button>
+                    <button onClick={() => navigate('/donate')} style={styles.donateBtn}>DONATE</button>
                     <button style={styles.menuToggle} onClick={() => setMenuOpen(!menuOpen)}>
                         {menuOpen ? '✕' : '☰'}
                     </button>
@@ -188,12 +187,12 @@ const Header = ({ setPage }) => {
 
             <nav style={styles.navBar}>
                 <div style={styles.navList}>
-                    <button onClick={() => handleLinkClick('home')} style={styles.navLink}>Home</button>
-                    <button onClick={() => handleLinkClick('home', '#gallery')} style={styles.navLink}>Gallery</button>
-                    <button onClick={() => handleLinkClick('home', '#leadership')} style={styles.navLink}>Leadership</button>
-                    <button onClick={() => handleLinkClick('home', '#services')} style={styles.navLink}>Services</button>
-                    <button onClick={() => handleLinkClick('home', '#contact')} style={styles.navLink}>Contact Us</button>
-                    <button onClick={() => { setPage('donate'); setMenuOpen(false); }} style={styles.mobileDonateBtn}>DONATE NOW</button>
+                    <NavLink to="/" style={({ isActive }) => isActive ? { ...styles.navLink, ...styles.activeLink } : styles.navLink} onClick={handleMenuClick}>Home</NavLink>
+                    <NavLink to="/gallery" style={({ isActive }) => isActive ? { ...styles.navLink, ...styles.activeLink } : styles.navLink} onClick={handleMenuClick}>Gallery</NavLink>
+                    <NavLink to="/about" style={({ isActive }) => isActive ? { ...styles.navLink, ...styles.activeLink } : styles.navLink} onClick={handleMenuClick}>About Us</NavLink>
+                    <NavLink to="/services" style={({ isActive }) => isActive ? { ...styles.navLink, ...styles.activeLink } : styles.navLink} onClick={handleMenuClick}>Services</NavLink>
+                    <NavLink to="/contact" style={({ isActive }) => isActive ? { ...styles.navLink, ...styles.activeLink } : styles.navLink} onClick={handleMenuClick}>Contact Us</NavLink>
+                    <NavLink to="/donate" style={styles.mobileDonateBtn} onClick={handleMenuClick}>DONATE NOW</NavLink>
                 </div>
             </nav>
         </header>
