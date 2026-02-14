@@ -22,14 +22,34 @@ const Header = ({ setPage }) => {
             justifyContent: 'space-between',
             borderBottom: isMobile ? '1px solid #eee' : 'none',
         },
+        topInfoBar: {
+            background: '#f8fafc',
+            borderBottom: '1px solid #e2e8f0',
+            padding: isMobile ? '4px 5%' : '6px 10%',
+            display: 'flex',
+            justifyContent: isMobile ? 'center' : 'flex-end',
+            gap: isMobile ? '10px' : '20px',
+            fontSize: isMobile ? '10px' : '12px',
+            color: '#64748b',
+            fontFamily: "'Inter', sans-serif",
+        },
+        infoItem: {
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px',
+        },
         logoSection: {
             display: 'flex',
             alignItems: 'center',
-            gap: isMobile ? '10px' : '15px',
+            gap: isMobile ? '12px' : '18px',
+            cursor: 'pointer',
         },
         logoImg: {
-            height: isMobile ? '40px' : '60px',
+            height: isMobile ? '45px' : '68px',
+            width: 'auto',
             objectFit: 'contain',
+            filter: 'drop-shadow(0 2px 5px rgba(0,0,0,0.08))',
+            transition: 'transform 0.3s ease',
         },
         logoTextContainer: {
             display: 'flex',
@@ -46,10 +66,11 @@ const Header = ({ setPage }) => {
         },
         logoSubtitle: {
             margin: 0,
-            fontSize: isMobile ? '10px' : '14px',
-            color: '#065f46',
+            fontSize: isMobile ? '10px' : '12px',
+            color: '#059669',
             fontWeight: '600',
-            letterSpacing: '1px',
+            letterSpacing: '0.5px',
+            textTransform: 'uppercase',
         },
         navBar: {
             background: '#1e3a8a',
@@ -139,9 +160,18 @@ const Header = ({ setPage }) => {
 
     return (
         <header style={{ position: 'relative' }}>
+            <div style={styles.topInfoBar}>
+                <div style={styles.infoItem}>
+                    <span style={{ fontWeight: '700', color: '#1e3a8a' }}>Founder:</span> Jatothu Ravi (8143177143)
+                </div>
+                {!isMobile && <span style={{ color: '#cbd5e1' }}>|</span>}
+                <div style={styles.infoItem}>
+                    <span style={{ fontWeight: '700', color: '#10b981' }}>Co-Founder:</span> Gugulothu Naveen (9908709764)
+                </div>
+            </div>
             <div style={styles.mainHeader}>
                 <div style={styles.logoSection} onClick={() => handleLinkClick('home')}>
-                    <img src="/favicon.png" alt="Logo" style={styles.logoImg} />
+                    <img src="/favicon1.png" alt="Logo" style={styles.logoImg} className="logo-hover" />
                     <div style={styles.logoTextContainer}>
                         <h1 style={styles.logoTitle}>MAASADGURU</h1>
                         <p style={styles.logoSubtitle}>Social Service</p>
@@ -159,11 +189,9 @@ const Header = ({ setPage }) => {
             <nav style={styles.navBar}>
                 <div style={styles.navList}>
                     <button onClick={() => handleLinkClick('home')} style={styles.navLink}>Home</button>
-                    <button onClick={() => handleLinkClick('home', '#about')} style={styles.navLink}>About Us</button>
-                    <button onClick={() => handleLinkClick('home', '#features')} style={styles.navLink}>NGO Directory</button>
-                    <button onClick={() => handleLinkClick('home', '#statistics')} style={styles.navLink}>Statistics</button>
-                    <button onClick={() => handleLinkClick('home', '#services')} style={styles.navLink}>NGO Resources</button>
+                    <button onClick={() => handleLinkClick('home', '#gallery')} style={styles.navLink}>Gallery</button>
                     <button onClick={() => handleLinkClick('home', '#leadership')} style={styles.navLink}>Leadership</button>
+                    <button onClick={() => handleLinkClick('home', '#services')} style={styles.navLink}>Services</button>
                     <button onClick={() => handleLinkClick('home', '#contact')} style={styles.navLink}>Contact Us</button>
                     <button onClick={() => { setPage('donate'); setMenuOpen(false); }} style={styles.mobileDonateBtn}>DONATE NOW</button>
                 </div>
