@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Donate = ({ onBack }) => {
+const Donate = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -64,7 +66,7 @@ const Donate = ({ onBack }) => {
                 Please note that <strong>donations are not being accepted at the moment</strong> as we are currently updating our payment systems.
                 We appreciate your patience and heart for social welfare.
             </p>
-            <button style={styles.button} onClick={onBack}>
+            <button style={styles.button} onClick={() => navigate('/')}>
                 Back to Home
             </button>
         </div>

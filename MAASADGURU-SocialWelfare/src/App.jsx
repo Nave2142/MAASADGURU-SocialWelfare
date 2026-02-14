@@ -34,7 +34,7 @@ const App = () => {
       color: '#333',
       backgroundColor: '#f5f5f5',
       minHeight: '100vh',
-      paddingTop: isMobile ? '100px' : '0',
+      paddingTop: isMobile ? '70px' : '0',
     }
   };
 
