@@ -91,16 +91,20 @@ const Footer = () => {
                 <div style={styles.footerCol}>
                     <h4 style={styles.footerTitle}>Contact</h4>
                     <p style={{ margin: '0 0 10px', lineHeight: '1.5' }}>
-                        <strong>Maasadguru Social Services</strong><br />
+                        <strong>Maasadguru Social Service</strong><br />
                         Hyderabad, Telangana<br />
                         India
                     </p>
                     <p style={{ margin: 0 }}>Email: support@maasadguru.org</p>
+                    <p style={{ margin: '8px 0 0', lineHeight: '1.4' }}>
+                        Call: +91 8143177143<br />
+                        Call: +91 9908709764
+                    </p>
                 </div>
             </div>
 
             <div style={styles.bottomSection}>
-                <div style={{ marginBottom: '10px' }}>Content Owned, Maintained and Updated by Maasadguru Social Welfare Organization</div>
+                <div style={{ marginBottom: '10px' }}>Content Owned, Maintained and Updated by Maasadguru Social Service</div>
                 <div style={styles.govtText}>Modeled after National Standards for NGO Transparency</div>
                 <div style={{ marginTop: '15px', color: '#64748b' }}>© 2026 Maasadguru. All Rights Reserved.</div>
             </div>

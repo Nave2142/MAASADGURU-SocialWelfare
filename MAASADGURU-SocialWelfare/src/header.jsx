@@ -144,7 +144,7 @@ const Header = ({ setPage }) => {
                     <img src="/favicon.png" alt="Logo" style={styles.logoImg} />
                     <div style={styles.logoTextContainer}>
                         <h1 style={styles.logoTitle}>MAASADGURU</h1>
-                        <p style={styles.logoSubtitle}>SOCIAL WELFARE ORGANIZATION</p>
+                        <p style={styles.logoSubtitle}>Social Service</p>
                     </div>
                 </div>
 

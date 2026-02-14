@@ -312,13 +312,14 @@ const App = () => {
               gap: '20px',
             }}>
               {[
-                { name: 'Jatothu Ravi', role: 'Founder', desc: 'Leading the vision for social equity and transparent welfare systems.', color: '#1e3a8a', bg: '#eff6ff' },
-                { name: 'Gugulothu Naveen', role: 'Co-Founder', desc: 'Overseeing technical architecture and field operations for maximum impact.', color: '#10b981', bg: '#f0fdf4' }
+                { name: 'Jatothu Ravi', role: 'Founder', mobile: '8143177143', desc: 'Leading the vision for social equity and transparent welfare systems.', color: '#1e3a8a', bg: '#eff6ff' },
+                { name: 'Gugulothu Naveen', role: 'Co-Founder', mobile: '9908709764', desc: 'Overseeing technical architecture and field operations for maximum impact.', color: '#10b981', bg: '#f0fdf4' }
               ].map((leader, i) => (
                 <div key={i} style={{ padding: '25px', background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '4px', textAlign: 'center', borderTop: `4px solid ${leader.color}` }}>
                   <div style={{ width: '80px', height: '80px', backgroundColor: leader.bg, borderRadius: '50%', margin: '0 auto 15px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '32px' }}>👤</div>
                   <h3 style={{ margin: '0 0 5px 0', fontSize: '18px', color: '#1e3a8a' }}>{leader.name}</h3>
                   <p style={{ margin: 0, fontSize: '14px', color: '#065f46', fontWeight: 'bold' }}>{leader.role}</p>
+                  <p style={{ marginTop: '5px', fontSize: '14px', color: '#1e3a8a', fontWeight: '600' }}>📞 {leader.mobile}</p>
                   <p style={{ marginTop: '10px', fontSize: '13px', color: '#666', lineHeight: '1.5' }}>{leader.desc}</p>
                 </div>
               ))}
