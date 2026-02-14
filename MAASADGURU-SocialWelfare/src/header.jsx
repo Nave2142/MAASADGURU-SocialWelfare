@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 const Header = () => {
+    const [width, setWidth] = useState(window.innerWidth);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
     const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth < 1024);
-            if (window.innerWidth >= 1024) setMenuOpen(false);
+            const currentWidth = window.innerWidth;
+            setWidth(currentWidth);
+            setIsMobile(currentWidth < 1024);
+            if (currentWidth >= 1024) setMenuOpen(false);
         };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
@@ -27,10 +30,12 @@ const Header = () => {
         topInfoBar: {
             background: '#f8fafc',
             borderBottom: '1px solid #e2e8f0',
-            padding: isMobile ? '4px 5%' : '6px 10%',
+            padding: isMobile ? '6px 5%' : '6px 10%',
             display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
             justifyContent: isMobile ? 'center' : 'flex-end',
-            gap: isMobile ? '10px' : '20px',
+            gap: isMobile ? '8px 15px' : '20px',
             fontSize: isMobile ? '10px' : '12px',
             color: '#64748b',
             fontFamily: "'Inter', sans-serif",
@@ -81,12 +86,16 @@ const Header = () => {
             display: isMobile ? (menuOpen ? 'block' : 'none') : 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            position: isMobile ? 'absolute' : 'static',
-            top: isMobile ? '60px' : 'auto',
+            position: isMobile ? 'fixed' : 'static',
+            top: isMobile ? (width < 600 ? '110px' : '95px') : 'auto',
             left: 0,
             width: isMobile ? '100%' : 'auto',
+            height: 'auto',
+            maxHeight: isMobile ? 'calc(100vh - 95px)' : 'auto',
             zIndex: 1000,
             boxShadow: isMobile ? '0 4px 6px rgba(0,0,0,0.1)' : 'none',
+            overflowY: isMobile ? 'auto' : 'visible',
+            transition: 'all 0.3s ease-in-out',
         },
         navList: {
             display: 'flex',
@@ -158,7 +167,28 @@ const Header = () => {
     };
 
     return (
-        <header style={{ position: 'relative' }}>
+        <header style={{
+            position: isMobile ? 'fixed' : 'relative',
+            top: 0,
+            left: 0,
+            width: '100%',
+            zIndex: 2000,
+            background: '#fff'
+        }}>
+            {isMobile && menuOpen && (
+                <div
+                    onClick={handleMenuClick}
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100vw',
+                        height: '100vh',
+                        background: 'rgba(0,0,0,0.5)',
+                        zIndex: 900
+                    }}
+                />
+            )}
             <div style={styles.topInfoBar}>
                 <div style={styles.infoItem}>
                     <span style={{ fontWeight: '700', color: '#1e3a8a' }}>Founder:</span> Jatothu Ravi (8143177143)
@@ -178,9 +208,11 @@ const Header = () => {
                 </NavLink>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                    <button onClick={() => navigate('/donate')} style={styles.donateBtn}>DONATE</button>
+                    {!isMobile && <button onClick={() => navigate('/donate')} style={styles.donateBtn}>DONATE</button>}
                     <button style={styles.menuToggle} onClick={() => setMenuOpen(!menuOpen)}>
-                        {menuOpen ? '✕' : '☰'}
+                        <div style={{ transform: menuOpen ? 'rotate(90deg)' : 'none', transition: 'transform 0.3s ease' }}>
+                            {menuOpen ? '✕' : '☰'}
+                        </div>
                     </button>
                 </div>
             </div>

@@ -19,12 +19,22 @@ const ScrollToTop = () => {
 };
 
 const App = () => {
+  const [width, setWidth] = useState(window.innerWidth);
+  const isMobile = width < 1024;
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const styles = {
     container: {
       fontFamily: "'Inter', sans-serif",
       color: '#333',
       backgroundColor: '#f5f5f5',
       minHeight: '100vh',
+      paddingTop: isMobile ? '100px' : '0',
     }
   };
 
