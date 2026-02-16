@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import MapComponent from './MapComponent.jsx';
 
 const ContactUs = () => {
     const [width, setWidth] = useState(window.innerWidth);
@@ -98,6 +99,11 @@ const ContactUs = () => {
                             <button type="submit" style={styles.submitBtn}>Send Message</button>
                         </form>
                     </div>
+                </div>
+
+                <div style={{ marginTop: '40px', padding: isMobile ? '20px' : '40px', background: '#f8fafc', borderRadius: '8px' }}>
+                    <h3 style={{ ...styles.sectionHeader, marginBottom: '30px' }}>Our Location</h3>
+                    <MapComponent isMobile={isMobile} />
                 </div>
             </div>
         </div>
