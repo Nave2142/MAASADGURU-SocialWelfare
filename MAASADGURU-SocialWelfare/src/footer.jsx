@@ -65,7 +65,7 @@ const Footer = () => {
         <footer id="contact" style={styles.footer}>
             <div style={styles.topSection}>
                 <div style={styles.footerCol}>
-                    <h4 style={styles.footerTitle}>About Portal</h4>
+                    <h4 style={styles.footerTitle}>About NGO Portal</h4>
                     <a href="#" style={styles.footerLink}>Overview</a>
                     <a href="#" style={styles.footerLink}>Terms of Use</a>
                     <a href="#" style={styles.footerLink}>Privacy Policy</a>
@@ -91,7 +91,7 @@ const Footer = () => {
                 <div style={styles.footerCol}>
                     <h4 style={styles.footerTitle}>Contact</h4>
                     <p style={{ margin: '0 0 10px', lineHeight: '1.5' }}>
-                        <strong>Maasadguru Social Service</strong><br />
+                        <strong>Maasadguru NGO</strong><br />
                         Hyderabad, Telangana<br />
                         India
                     </p>
@@ -104,9 +104,9 @@ const Footer = () => {
             </div>
 
             <div style={styles.bottomSection}>
-                <div style={{ marginBottom: '10px' }}>Content Owned, Maintained and Updated by Maasadguru Social Service</div>
-                <div style={styles.govtText}>Modeled after National Standards for NGO Transparency</div>
-                <div style={{ marginTop: '15px', color: '#64748b' }}>© 2026 Maasadguru. All Rights Reserved.</div>
+                <div style={{ marginBottom: '10px' }}>Content Owned, Maintained and Updated by MAASADGURU NGO</div>
+                <div style={styles.govtText}>NGO Darpan Compliant Portal</div>
+                <div style={{ marginTop: '15px', color: '#64748b' }}>© 2026 MAASADGURU NGO. All Rights Reserved.</div>
             </div>
         </footer>
     );

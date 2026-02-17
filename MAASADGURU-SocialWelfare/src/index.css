@@ -1,3 +1,10 @@
+:root {
+  --ngo-blue: #1e3a8a;
+  --ngo-gold: #f59e0b;
+  --ngo-bg: #f8fafc;
+  --ngo-text: #334155;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -6,6 +13,27 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: var(--ngo-bg);
+  color: var(--ngo-text);
+  overflow-x: hidden;
+}
+
+/* Scroll Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-instant {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in forwards;
 }
 
 .logo-hover {
@@ -14,4 +42,48 @@ body {
 
 .logo-hover:hover {
   transform: scale(1.05);
+}
+
+/* Pulse Animation for NGO Highlights */
+@keyframes pulse-gold {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(245, 158, 11, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+}
+
+.ngo-badge {
+  animation: pulse-gold 2s infinite;
+}
+
+/* Card Hover Effects */
+.ngo-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ngo-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-color: var(--ngo-gold) !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1.2s ease-in;
 }

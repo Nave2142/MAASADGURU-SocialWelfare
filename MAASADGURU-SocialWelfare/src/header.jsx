@@ -178,8 +178,8 @@ const Header = () => {
                 <NavLink to="/" style={styles.logoSection} onClick={handleMenuClick}>
                     <img src="/favicon1.png" alt="Logo" style={styles.logoImg} className="logo-hover" />
                     <div style={styles.logoTextContainer}>
-                        <h1 style={styles.logoTitle}>MAASADGURU</h1>
-                        <p style={styles.logoSubtitle}>Social Service</p>
+                        <h1 style={styles.logoTitle}>MAASADGURU NGO</h1>
+                        <p style={styles.logoSubtitle}>Registered NGO - Darpan Compliant</p>
                     </div>
                 </NavLink>
 

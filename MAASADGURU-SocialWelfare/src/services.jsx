@@ -90,103 +90,103 @@ const Services = () => {
     return (
         <div style={styles.mainContainer}>
             <div style={styles.contentWrapper}>
-                <section id="services" style={{ marginBottom: '40px' }}>
-                    <h2 style={styles.sectionHeader}>Our Key Sectors</h2>
-                    <div style={styles.serviceItem}>
+                <section id="services" style={{ marginBottom: '40px' }} className="reveal">
+                    <h2 style={styles.sectionHeader}>Key NGO Sectors</h2>
+                    <div style={styles.serviceItem} className="ngo-card">
                         <div style={styles.serviceIcon}>🎓</div>
                         <div>
-                            <h3 style={{ margin: '0 0 5px 0', fontSize: '17px', color: '#1e3a8a' }}>Educational Reform</h3>
-                            <p style={{ margin: 0, fontSize: '14px', color: '#666' }}>Providing solar-powered digital classroom kits and mobile learning hubs for remote villages. We also facilitate scholarship applications for meritorious students.</p>
+                            <h3 style={{ margin: '0 0 5px 0', fontSize: '18px', color: '#1e3a8a', fontWeight: '700' }}>Educational Reform</h3>
+                            <p style={{ margin: 0, fontSize: '14px', color: '#475569', lineHeight: '1.6' }}>Providing solar-powered digital classroom kits and mobile learning hubs for remote villages. We follow strictly verified NGO enrollment protocols.</p>
                         </div>
                     </div>
-                    <div style={styles.serviceItem}>
+                    <div style={styles.serviceItem} className="ngo-card">
                         <div style={styles.serviceIcon}>🏥</div>
                         <div>
-                            <h3 style={{ margin: '0 0 5px 0', fontSize: '17px', color: '#1e3a8a' }}>Healthcare Initiatives</h3>
-                            <p style={{ margin: 0, fontSize: '14px', color: '#666' }}>Connecting medical professionals directly with underserved communities via our collaborative networks. Regular health camps for eye care and general checkups.</p>
+                            <h3 style={{ margin: '0 0 5px 0', fontSize: '18px', color: '#1e3a8a', fontWeight: '700' }}>Healthcare Initiatives</h3>
+                            <p style={{ margin: 0, fontSize: '14px', color: '#475569', lineHeight: '1.6' }}>Connecting medical professionals directly with underserved communities. NGO-led regular health camps for eye care and general checkups.</p>
                         </div>
                     </div>
-                    <div style={styles.serviceItem}>
+                    <div style={styles.serviceItem} className="ngo-card">
                         <div style={styles.serviceIcon}>🌱</div>
                         <div>
-                            <h3 style={{ margin: '0 0 5px 0', fontSize: '17px', color: '#1e3a8a' }}>Environmental Sustainability</h3>
-                            <p style={{ margin: 0, fontSize: '14px', color: '#666' }}>Community-led reforestation and sustainable waste management projects across local districts. Promoting organic farming techniques among rural youth.</p>
+                            <h3 style={{ margin: '0 0 5px 0', fontSize: '18px', color: '#1e3a8a', fontWeight: '700' }}>Environmental Sustainability</h3>
+                            <p style={{ margin: 0, fontSize: '14px', color: '#475569', lineHeight: '1.6' }}>NGO-led reforestation and sustainable waste management projects. Promoting organic farming techniques among rural youth.</p>
                         </div>
                     </div>
-                    <div style={styles.serviceItem}>
+                    <div style={styles.serviceItem} className="ngo-card">
                         <div style={styles.serviceIcon}>👩‍👧</div>
                         <div>
-                            <h3 style={{ margin: '0 0 5px 0', fontSize: '17px', color: '#1e3a8a' }}>Women Empowerment</h3>
-                            <p style={{ margin: 0, fontSize: '14px', color: '#666' }}>Skill development workshops and self-help group formation to enable financial independence for rural women.</p>
+                            <h3 style={{ margin: '0 0 5px 0', fontSize: '18px', color: '#1e3a8a', fontWeight: '700' }}>Women Empowerment</h3>
+                            <p style={{ margin: 0, fontSize: '14px', color: '#475569', lineHeight: '1.6' }}>Skill development workshops and NGO self-help groups to enable financial independence for rural women.</p>
                         </div>
                     </div>
                 </section>
 
-                <section id="process" style={{ marginBottom: '60px' }}>
-                    <h2 style={styles.sectionHeader}>How We Work</h2>
+                <section id="process" style={{ marginBottom: '60px' }} className="reveal">
+                    <h2 style={styles.sectionHeader}>The NGO Delivery Model</h2>
                     <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)', gap: '20px', marginTop: '30px' }}>
-                        <div style={styles.processStep}>
+                        <div style={styles.processStep} className="ngo-card">
                             <div style={styles.stepNumber}>1</div>
-                            <h4 style={{ margin: '10px 0', color: '#1e3a8a' }}>Identify</h4>
-                            <p style={{ fontSize: '13px', color: '#666' }}>We survey villages to identify the most pressing needs of the community.</p>
+                            <h4 style={{ margin: '10px 0', color: '#1e3a8a', fontWeight: '700' }}>Identify</h4>
+                            <p style={{ fontSize: '13px', color: '#64748b' }}>Surveying villages to identify the most pressing NGO needs.</p>
                         </div>
-                        <div style={styles.processStep}>
+                        <div style={styles.processStep} className="ngo-card">
                             <div style={styles.stepNumber}>2</div>
-                            <h4 style={{ margin: '10px 0', color: '#1e3a8a' }}>Plan</h4>
-                            <p style={{ fontSize: '13px', color: '#666' }}>Our experts design sustainable interventions tailored to local conditions.</p>
+                            <h4 style={{ margin: '10px 0', color: '#1e3a8a', fontWeight: '700' }}>Plan</h4>
+                            <p style={{ fontSize: '13px', color: '#64748b' }}>Experts design NGO interventions tailored to local village conditions.</p>
                         </div>
-                        <div style={styles.processStep}>
+                        <div style={styles.processStep} className="ngo-card">
                             <div style={styles.stepNumber}>3</div>
-                            <h4 style={{ margin: '10px 0', color: '#1e3a8a' }}>Execute</h4>
-                            <p style={{ fontSize: '13px', color: '#666' }}>Volunteers and partners implement the project with full transparency.</p>
+                            <h4 style={{ margin: '10px 0', color: '#1e3a8a', fontWeight: '700' }}>Execute</h4>
+                            <p style={{ fontSize: '13px', color: '#64748b' }}>Volunteers implement the NGO project with Darpan transparency.</p>
                         </div>
-                        <div style={styles.processStep}>
+                        <div style={styles.processStep} className="ngo-card">
                             <div style={styles.stepNumber}>4</div>
-                            <h4 style={{ margin: '10px 0', color: '#1e3a8a' }}>Sustain</h4>
-                            <p style={{ fontSize: '13px', color: '#666' }}>We empower locals to take ownership ensure long-term impact.</p>
+                            <h4 style={{ margin: '10px 0', color: '#1e3a8a', fontWeight: '700' }}>Sustain</h4>
+                            <p style={{ fontSize: '13px', color: '#64748b' }}>Empowering village committees to ensure long-term NGO impact.</p>
                         </div>
                     </div>
                 </section>
 
-                <section id="features">
-                    <h2 style={styles.sectionHeader}>NGO Operational Features</h2>
+                <section id="features" className="reveal">
+                    <h2 style={styles.sectionHeader}>NGO Operational Governance</h2>
                     <div style={styles.grid}>
-                        <div style={styles.featureCard}>
-                            <h3 style={{ fontSize: '18px', color: '#1e3a8a', marginBottom: '12px', fontWeight: '700' }}>Transparent Operations</h3>
-                            <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#4b5563' }}>Standardized verification and status tracking for all projects to ensure complete accountability.</p>
+                        <div style={styles.featureCard} className="ngo-card">
+                            <h3 style={{ fontSize: '18px', color: '#1e3a8a', marginBottom: '12px', fontWeight: '700' }}>Transparent NGO Ops</h3>
+                            <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#475569' }}>Standardized verification and status tracking for all NGO projects as per Darpan guidelines.</p>
                         </div>
-                        <div style={styles.featureCard}>
-                            <h3 style={{ fontSize: '18px', color: '#1e3a8a', marginBottom: '12px', fontWeight: '700' }}>Impact Dashboard</h3>
-                            <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#4b5563' }}>Real-time analytics for donors to see where funds are being utilized across different social sectors.</p>
+                        <div style={styles.featureCard} className="ngo-card">
+                            <h3 style={{ fontSize: '18px', color: '#1e3a8a', marginBottom: '12px', fontWeight: '700' }}>NGO Impact Dashboard</h3>
+                            <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#475569' }}>Real-time NGO analytics for donors to see fund utilization across social sectors.</p>
                         </div>
-                        <div style={styles.featureCard}>
-                            <h3 style={{ fontSize: '18px', color: '#1e3a8a', marginBottom: '12px', fontWeight: '700' }}>Volunteer Portal</h3>
-                            <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#4b5563' }}>A dedicated space for youth and professionals to register, track hours, and receive digital certificates.</p>
+                        <div style={styles.featureCard} className="ngo-card">
+                            <h3 style={{ fontSize: '18px', color: '#1e3a8a', marginBottom: '12px', fontWeight: '700' }}>NGO Volunteer Portal</h3>
+                            <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#475569' }}>A dedicated space for youth to register, track NGO service hours, and receive certifications.</p>
                         </div>
-                        <div style={styles.featureCard}>
-                            <h3 style={{ fontSize: '18px', color: '#1e3a8a', marginBottom: '12px', fontWeight: '700' }}>Direct Beneficiary Links</h3>
-                            <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#4b5563' }}>Cutting out middlemen to ensure resources reach the intended communities directly.</p>
+                        <div style={styles.featureCard} className="ngo-card">
+                            <h3 style={{ fontSize: '18px', color: '#1e3a8a', marginBottom: '12px', fontWeight: '700' }}>NGO Beneficiary Links</h3>
+                            <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#475569' }}>Direct NGO intervention to ensure resources reach intended communities without middlemen.</p>
                         </div>
                     </div>
                 </section>
 
-                <section id="methodology" style={{ marginTop: '40px' }}>
-                    <h2 style={styles.sectionHeader}>Our Strategic Pillars</h2>
-                    <p style={{ fontSize: '15px', color: '#444', lineHeight: '1.8', marginBottom: '20px' }}>
-                        At Maasadguru, we don't just provide aid; we build systems. Our approach is rooted in three fundamental pillars that ensure every intervention is meaningful and long-lasting.
+                <section id="methodology" style={{ marginTop: '40px' }} className="reveal">
+                    <h2 style={styles.sectionHeader}>Our NGO Strategic Pillars</h2>
+                    <p style={{ fontSize: '15px', color: '#475569', lineHeight: '1.8', marginBottom: '20px', fontWeight: '500' }}>
+                        At <strong>Maasadguru NGO</strong>, we build systems powered by transparency and community trust.
                     </p>
                     <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr', gap: '20px' }}>
-                        <div style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
-                            <h4 style={{ color: '#1e3a8a', marginBottom: '10px' }}>Awareness & Advocacy</h4>
-                            <p style={{ fontSize: '13px', color: '#666' }}>Conducting ground-level workshops to educate citizens about their rights and available government benefits, inspired by the <strong>NGO Darpan</strong> transparency model.</p>
+                        <div style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '12px', background: '#fff' }} className="ngo-card">
+                            <h4 style={{ color: '#1e3a8a', marginBottom: '10px', fontWeight: '700' }}>Awareness & Advocacy</h4>
+                            <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>NGO-led ground-level workshops to educate citizens about government benefits, following the <strong>NGO Darpan</strong> model.</p>
                         </div>
-                        <div style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
-                            <h4 style={{ color: '#1e3a8a', marginBottom: '10px' }}>Resource Optimization</h4>
-                            <p style={{ fontSize: '13px', color: '#666' }}>Utilizing digital tools to match community needs with available donor resources, ensuring zero wastage and maximum reach.</p>
+                        <div style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '12px', background: '#fff' }} className="ngo-card">
+                            <h4 style={{ color: '#1e3a8a', marginBottom: '10px', fontWeight: '700' }}>Resource Optimization</h4>
+                            <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>Utilizing NGO digital tools to match needs with donor resources, ensuring zero wastage.</p>
                         </div>
-                        <div style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
-                            <h4 style={{ color: '#1e3a8a', marginBottom: '10px' }}>Sustainable Exit</h4>
-                            <p style={{ fontSize: '13px', color: '#666' }}>Every project includes a handover phase where local village committees are trained to maintain the infrastructure or systems independently.</p>
+                        <div style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '12px', background: '#fff' }} className="ngo-card">
+                            <h4 style={{ color: '#1e3a8a', marginBottom: '10px', fontWeight: '700' }}>Sustainable Exit</h4>
+                            <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>NGO handover phase where local village committees are trained to maintain infrastructure independently.</p>
                         </div>
                     </div>
                 </section>

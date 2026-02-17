@@ -9,12 +9,61 @@ import AboutUsPage from './aboutUs';
 import ServicesPage from './services';
 import ContactUsPage from './contactUs';
 
-// Scroll to top on route change
+// Scroll to top and refresh animations on route change
 const ScrollToTop = () => {
   const { pathname } = useLocation();
+
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Fallback for older browsers
+    if (!window.IntersectionObserver) {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+      return;
+    }
+
+    const observerOptions = {
+      threshold: 0,
+      rootMargin: '100px' // Expand trigger area to be more lenient
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const scanAndObserve = () => {
+      const elements = document.querySelectorAll('.reveal');
+      elements.forEach(el => {
+        // Double check: if it's already got the active class, ignore
+        if (el.classList.contains('active')) return;
+
+        const rect = el.getBoundingClientRect();
+        // If element is already in or very near the viewport, show it
+        if (rect.top < (window.innerHeight + 100) && rect.bottom > -100) {
+          el.classList.add('active');
+        } else {
+          observer.observe(el);
+        }
+      });
+    };
+
+    // More aggressive scanning schedule to handle React route transitions
+    scanAndObserve();
+    const intervals = [50, 200, 500, 1000, 2000, 5000].map(delay =>
+      setTimeout(scanAndObserve, delay)
+    );
+
+    return () => {
+      intervals.forEach(clearTimeout);
+      observer.disconnect();
+    };
   }, [pathname]);
+
   return null;
 };
 

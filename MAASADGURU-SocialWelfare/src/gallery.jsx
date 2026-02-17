@@ -98,9 +98,9 @@ const Gallery = () => {
 
     return (
         <div style={styles.mainContainer}>
-            <div style={styles.contentWrapper}>
+            <div style={styles.contentWrapper} className="reveal-instant">
                 <section id="gallery">
-                    <h2 style={styles.sectionHeader}>Impact Gallery</h2>
+                    <h2 style={styles.sectionHeader}>NGO Impact Gallery</h2>
                     <div style={styles.sliderContainer}>
                         {images.map((img, index) => (
                             <div
@@ -113,8 +113,8 @@ const Gallery = () => {
                                 }}
                             >
                                 <div style={styles.slideCaption}>
-                                    <h3 style={{ margin: '0 0 5px 0', fontSize: isMobile ? '16px' : '20px' }}>{img.title}</h3>
-                                    <p style={{ margin: 0, fontSize: isMobile ? '12px' : '14px', opacity: 0.9 }}>{img.desc}</p>
+                                    <h3 style={{ margin: '0 0 5px 0', fontSize: isMobile ? '16px' : '20px', fontWeight: '700' }}>{img.title}</h3>
+                                    <p style={{ margin: 0, fontSize: isMobile ? '12px' : '14px', opacity: 0.9 }}>{img.desc} - Verified NGO Project</p>
                                 </div>
                             </div>
                         ))}

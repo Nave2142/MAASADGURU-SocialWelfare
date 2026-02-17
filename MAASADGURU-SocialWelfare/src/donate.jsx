@@ -58,16 +58,18 @@ const Donate = () => {
     };
 
     return (
-        <div style={styles.container}>
+        <div style={styles.container} className="reveal-instant">
             <div style={styles.icon}>🙏</div>
-            <h2 style={styles.title}>Support Our Cause</h2>
+            <h2 style={styles.title}>Support Maasadguru NGO</h2>
             <p style={styles.message}>
-                Thank you for your interest in supporting Maasadguru Social Services.
-                Please note that <strong>donations are not being accepted at the moment</strong> as we are currently updating our payment systems.
-                We appreciate your patience and heart for social welfare.
+                Thank you for your interest in supporting <strong>Maasadguru NGO</strong>.
+                We are a registered <strong>12A & 80G</strong> entity, ensuring your contributions create maximum impact under <strong>NGO Darpan</strong> transparency norms.
             </p>
-            <button style={styles.button} onClick={() => navigate('/')}>
-                Back to Home
+            <p style={{ ...styles.message, color: '#059669', fontWeight: '700', fontSize: '14px' }}>
+                Note: Online donations are temporarily disabled for system updates. Please contact our NGO leadership directly for physical support.
+            </p>
+            <button style={{ ...styles.button, background: '#f59e0b', color: '#000' }} onClick={() => navigate('/')} className="ngo-badge">
+                Explore Our NGO Impact
             </button>
         </div>
     );

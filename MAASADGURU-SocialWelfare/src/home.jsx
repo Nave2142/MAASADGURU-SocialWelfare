@@ -189,13 +189,13 @@ const Home = () => {
                 }
                 `}
             </style>
-            <div style={styles.heroSection}>
+            <div style={styles.heroSection} className="fade-in">
                 <div style={{ maxWidth: '800px' }}>
-                    <h1 style={{ fontSize: isMobile ? '36px' : '64px', margin: '0 0 15px 0', fontFamily: "'Outfit', sans-serif", fontWeight: '800' }}>MAASADGURU</h1>
-                    <p style={{ fontSize: isMobile ? '16px' : '22px', opacity: 0.95, lineHeight: '1.4', marginBottom: '30px' }}>
-                        Empowering Communities through Transparency, Education, and Sustainable Change.
+                    <h1 style={{ fontSize: isMobile ? '36px' : '64px', margin: '0 0 15px 0', fontFamily: "'Outfit', sans-serif", fontWeight: '800', letterSpacing: '1px' }}>MAASADGURU NGO</h1>
+                    <p style={{ fontSize: isMobile ? '16px' : '22px', opacity: 0.95, lineHeight: '1.4', marginBottom: '30px', fontWeight: '500' }}>
+                        Providing Transparent & Efficient Support for Rural Development across Telangana.
                     </p>
-                    <button onClick={() => navigate('/donate')} style={styles.button}>Start Your Impact</button>
+                    <button onClick={() => navigate('/donate')} style={styles.button} className="ngo-badge">Start Your Impact</button>
                 </div>
             </div>
 
@@ -208,23 +208,23 @@ const Home = () => {
             <div style={styles.mainContainer}>
                 <div style={styles.contentWrapper}>
 
-                    <section id="mission" style={{ marginBottom: '80px' }}>
+                    <section id="mission" style={{ marginBottom: '80px' }} className="reveal">
                         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-                            <h2 style={styles.sectionHeader}>Our Driving Vision</h2>
-                            <div style={{ width: '60px', height: '4px', background: '#f59e0b', margin: '0 auto' }}></div>
+                            <h2 style={styles.sectionHeader}>NGO Mission & Vision</h2>
+                            <div style={{ width: '60px', height: '4px', background: '#f59e0b', margin: '15px auto' }}></div>
                         </div>
                         <div style={styles.highlightBox}>
-                            <p style={{ margin: 0, fontSize: isMobile ? '16px' : '19px', color: '#065f46', lineHeight: '1.8', textAlign: 'center' }}>
-                                <strong>Maasadguru Social Services</strong> is more than just an organization; it's a movement aimed at bridging the gap between resources and the underserved.
-                                We believe in a world where every individual, regardless of their background, has access to quality education, healthcare, and a clean environment.
+                            <p style={{ margin: 0, fontSize: isMobile ? '16px' : '19px', color: '#065f46', lineHeight: '1.8', textAlign: 'center', fontWeight: '500' }}>
+                                <strong>Maasadguru NGO</strong> is a centralized movement aimed at bridging the gap between resources and the underserved.
+                                We operate with the transparency standards of <strong>NGO Darpan</strong>, ensuring that every initiative creates a direct impact on rural livelihoods.
                             </p>
                         </div>
                     </section>
 
-                    <section id="statistics" style={{ marginBottom: '80px' }}>
+                    <section id="statistics" style={{ marginBottom: '80px' }} className="reveal">
                         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-                            <h3 style={styles.sectionHeader}>The Scale of Our Reach</h3>
-                            <div style={{ width: '60px', height: '4px', background: '#f59e0b', margin: '0 auto' }}></div>
+                            <h3 style={styles.sectionHeader}>Scale of NGO Operations</h3>
+                            <div style={{ width: '60px', height: '4px', background: '#f59e0b', margin: '15px auto' }}></div>
                         </div>
                         <div style={styles.impactGrid}>
                             {[
@@ -233,7 +233,7 @@ const Home = () => {
                                 { label: 'Volunteers Enrolled', value: '500+', icon: '🤝' },
                                 { label: 'Projects Completed', value: '120+', icon: '✅' }
                             ].map((stat, idx) => (
-                                <div key={idx} style={styles.impactCard}>
+                                <div key={idx} style={styles.impactCard} className="ngo-card">
                                     <div style={{ fontSize: '40px', marginBottom: '15px' }}>{stat.icon}</div>
                                     <div style={{ fontSize: '32px', fontWeight: '800', color: '#1e3a8a', marginBottom: '5px', fontFamily: "'Outfit', sans-serif" }}>{stat.value}</div>
                                     <div style={{ fontSize: '13px', color: '#64748b', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px' }}>{stat.label}</div>
@@ -242,12 +242,12 @@ const Home = () => {
                         </div>
                     </section>
 
-                    <section id="schemes" style={{ marginBottom: '80px' }}>
+                    <section id="schemes" style={{ marginBottom: '80px' }} className="reveal">
                         <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-                            <h2 style={styles.sectionHeader}>Facilitating Government Welfare</h2>
+                            <h2 style={styles.sectionHeader}>NGO Facilitated Welfare Schemes</h2>
                             <div style={{ width: '60px', height: '4px', background: '#f59e0b', margin: '15px auto' }}></div>
                             <p style={{ maxWidth: '700px', margin: '15px auto 0', color: '#64748b', fontSize: '16px' }}>
-                                We bridge the gap between government schemes and eligible beneficiaries, ensuring entitlements reach the last mile.
+                                Following the <strong>NGO Darpan</strong> guidelines, we assist the community in accessing vital government programs.
                             </p>
                         </div>
                         <div style={styles.schemesGrid}>
@@ -257,7 +257,7 @@ const Home = () => {
                                 { icon: '🎓', title: 'Post-Matric Scholarships', desc: 'Helping students from marginalized communities access state and central education scholarships.' },
                                 { icon: '🏥', title: 'Arogyasri Health Cards', desc: 'Facilitating enrollment for health insurance cards to ensure cashless medical treatment for the poor.' }
                             ].map((scheme, i) => (
-                                <div key={i} style={styles.schemeCard}>
+                                <div key={i} style={styles.schemeCard} className="ngo-card">
                                     <div style={{ fontSize: '36px', minWidth: '50px' }}>{scheme.icon}</div>
                                     <div>
                                         <h3 style={{ margin: '0 0 8px 0', color: '#1e3a8a', fontSize: '18px', fontWeight: '700' }}>{scheme.title}</h3>
@@ -268,27 +268,27 @@ const Home = () => {
                         </div>
                     </section>
 
-                    <section id="focus-areas" style={{ marginBottom: '80px' }}>
+                    <section id="focus-areas" style={{ marginBottom: '80px' }} className="reveal">
                         <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-                            <h2 style={styles.sectionHeader}>Areas of Focus</h2>
+                            <h2 style={styles.sectionHeader}>NGO Focus Areas</h2>
                             <div style={{ width: '60px', height: '4px', background: '#f59e0b', margin: '15px auto' }}></div>
                         </div>
                         <div style={styles.serviceGrid}>
-                            <div style={styles.serviceCard}>
+                            <div style={styles.serviceCard} className="ngo-card">
                                 <div style={styles.iconCircle}>🎓</div>
                                 <h3 style={{ color: '#1e3a8a', marginBottom: '15px', fontWeight: '700' }}>Education</h3>
                                 <p style={{ fontSize: '15px', color: '#64748b', lineHeight: '1.6' }}>
                                     Bridging the digital divide with mobile learning hubs and solar kits for remote students.
                                 </p>
                             </div>
-                            <div style={styles.serviceCard}>
+                            <div style={styles.serviceCard} className="ngo-card">
                                 <div style={styles.iconCircle}>🏥</div>
                                 <h3 style={{ color: '#1e3a8a', marginBottom: '15px', fontWeight: '700' }}>Health</h3>
                                 <p style={{ fontSize: '15px', color: '#64748b', lineHeight: '1.6' }}>
                                     Mobile medical clinics and direct support for rural healthcare infrastructure.
                                 </p>
                             </div>
-                            <div style={styles.serviceCard}>
+                            <div style={styles.serviceCard} className="ngo-card">
                                 <div style={styles.iconCircle}>🌱</div>
                                 <h3 style={{ color: '#1e3a8a', marginBottom: '15px', fontWeight: '700' }}>Sustainability</h3>
                                 <p style={{ fontSize: '15px', color: '#64748b', lineHeight: '1.6' }}>
@@ -298,7 +298,7 @@ const Home = () => {
                         </div>
                     </section>
 
-                    <section id="beneficiary-voices" style={{ marginBottom: '80px' }}>
+                    <section id="beneficiary-voices" style={{ marginBottom: '80px' }} className="reveal">
                         <div style={{ textAlign: 'center', marginBottom: '50px' }}>
                             <h2 style={styles.sectionHeader}>Beneficiary Voices</h2>
                             <div style={{ width: '60px', height: '4px', background: '#f59e0b', margin: '15px auto' }}></div>
@@ -309,7 +309,7 @@ const Home = () => {
                                 { text: "The study material provided by the NGO helped my son prepare for his entrance exams. We are forever grateful for their educational support.", author: "Venkanna, Farmer" },
                                 { text: "Their medical camp in our village identified my eye issue early. They even helped me get free surgery at the district hospital.", author: "Rajeswari, Tribal Hamelt" }
                             ].map((t, i) => (
-                                <div key={i} style={styles.testimonialCard}>
+                                <div key={i} style={styles.testimonialCard} className="ngo-card">
                                     <p style={{ marginBottom: '15px', color: '#334155', fontSize: '15px', lineHeight: '1.7' }}>"{t.text}"</p>
                                     <strong style={{ color: '#1e3a8a', display: 'block', fontSize: '14px' }}>- {t.author}</strong>
                                 </div>

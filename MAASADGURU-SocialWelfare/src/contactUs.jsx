@@ -159,12 +159,12 @@ const ContactUs = () => {
 
     return (
         <>
-            <div style={styles.heroSection}>
+            <div style={styles.heroSection} className="fade-in">
                 <div style={{ maxWidth: '800px' }}>
-                    <h1 style={{ fontSize: isMobile ? '32px' : '52px', margin: '0 0 10px 0', fontFamily: "'Outfit', sans-serif", fontWeight: '800' }}>Get in Touch</h1>
-                    <p style={{ fontSize: isMobile ? '16px' : '20px', opacity: 0.9, marginBottom: '25px' }}>We're here to answer any questions and hear your suggestions.</p>
+                    <h1 style={{ fontSize: isMobile ? '32px' : '52px', margin: '0 0 10px 0', fontFamily: "'Outfit', sans-serif", fontWeight: '800' }}>Contact Our NGO</h1>
+                    <p style={{ fontSize: isMobile ? '16px' : '20px', opacity: 0.9, marginBottom: '25px' }}>We follow clear communication standards as per NGO Darpan guidelines.</p>
                     <div style={{ display: 'flex', gap: '15px', justifyContent: 'center' }}>
-                        <button onClick={() => document.getElementById('inquiry-form').scrollIntoView({ behavior: 'smooth' })} style={{ ...styles.submitBtn, width: 'auto' }}>Send Message</button>
+                        <button onClick={() => document.getElementById('inquiry-form').scrollIntoView({ behavior: 'smooth' })} style={{ ...styles.submitBtn, width: 'auto' }} className="ngo-badge">Send Message</button>
                         <button onClick={() => document.getElementById('faqs').scrollIntoView({ behavior: 'smooth' })} style={styles.secondaryButton}>View FAQs</button>
                     </div>
                 </div>
@@ -174,31 +174,31 @@ const ContactUs = () => {
                 <div style={styles.contentWrapper}>
                     <div style={styles.contactGrid}>
                         <div>
-                            <h2 style={{ ...styles.sectionHeader, textAlign: 'left', marginBottom: '30px' }}>Contact Information</h2>
+                            <h2 style={{ ...styles.sectionHeader, textAlign: 'left', marginBottom: '30px' }}>NGO Contact Information</h2>
                             <p style={{ color: '#64748b', marginBottom: '40px', lineHeight: '1.7', fontSize: '16px' }}>
-                                Reach out to our leadership directly or visit our coordination hub in Hyderabad. Your support helps us bridge the gap for more families in Telangana.
+                                Reach out to our NGO leadership directly. <strong>Maasadguru NGO</strong> maintain open communication channels to ensure complete transparency.
                             </p>
 
                             <div style={styles.founderGrid}>
-                                <div style={styles.founderCard}>
+                                <div style={styles.founderCard} className="ngo-card">
                                     <div style={{ fontSize: '24px', marginBottom: '15px' }}>👤</div>
                                     <h3 style={{ margin: '0 0 5px 0', color: '#1e3a8a', fontSize: '18px', fontWeight: '700' }}>Jatothu Ravi</h3>
-                                    <p style={{ margin: '0 0 10px 0', fontSize: '13px', color: '#059669', fontWeight: '700', letterSpacing: '0.5px' }}>FOUNDER</p>
+                                    <p style={{ margin: '0 0 10px 0', fontSize: '13px', color: '#059669', fontWeight: '700', letterSpacing: '0.5px' }}>NGO FOUNDER</p>
                                     <a href="tel:+918143177143" style={{ margin: 0, fontSize: '16px', fontWeight: '800', color: '#334155', textDecoration: 'none' }}>📞 +91 8143177143</a>
                                 </div>
-                                <div style={styles.founderCard}>
+                                <div style={styles.founderCard} className="ngo-card">
                                     <div style={{ fontSize: '24px', marginBottom: '15px' }}>👤</div>
                                     <h3 style={{ margin: '0 0 5px 0', color: '#1e3a8a', fontSize: '18px', fontWeight: '700' }}>Gugulothu Naveen</h3>
-                                    <p style={{ margin: '0 0 10px 0', fontSize: '13px', color: '#059669', fontWeight: '700', letterSpacing: '0.5px' }}>CO-FOUNDER</p>
+                                    <p style={{ margin: '0 0 10px 0', fontSize: '13px', color: '#059669', fontWeight: '700', letterSpacing: '0.5px' }}>NGO CO-FOUNDER</p>
                                     <a href="tel:+919908709764" style={{ margin: 0, fontSize: '16px', fontWeight: '800', color: '#334155', textDecoration: 'none' }}>📞 +91 9908709764</a>
                                 </div>
                             </div>
 
-                            <div style={{ ...styles.founderCard, background: '#f0f9ff', border: '1px solid #bae6fd' }}>
+                            <div style={{ ...styles.founderCard, background: '#f0f9ff', border: '1px solid #bae6fd' }} className="ngo-card">
                                 <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
                                     <div style={{ fontSize: '30px' }}>📍</div>
                                     <div>
-                                        <h3 style={{ margin: '0 0 5px 0', color: '#1e3a8a', fontSize: '18px', fontWeight: '700' }}>Coordination Center</h3>
+                                        <h3 style={{ margin: '0 0 5px 0', color: '#1e3a8a', fontSize: '18px', fontWeight: '700' }}>NGO Coordination Center</h3>
                                         <p style={{ margin: 0, color: '#475569', fontSize: '15px', lineHeight: '1.6' }}>
                                             Uppal, Hyderabad,<br />
                                             Telangana 500039, India
@@ -208,13 +208,13 @@ const ContactUs = () => {
                             </div>
 
                             <div style={{ marginTop: '40px', display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-                                <div style={{ background: '#f1f5f9', padding: '20px', borderRadius: '12px', flex: '1 1 200px', textAlign: 'center', border: '1px solid #e2e8f0' }}>
+                                <div style={{ background: '#f1f5f9', padding: '20px', borderRadius: '12px', flex: '1 1 200px', textAlign: 'center', border: '1px solid #e2e8f0' }} className="ngo-card">
                                     <div style={{ fontSize: '24px', marginBottom: '8px' }}>📧</div>
-                                    <p style={{ margin: 0, fontSize: '14px', fontWeight: '700', color: '#1e3a8a' }}>support@maasadguru.org</p>
+                                    <p style={{ margin: 0, fontSize: '14px', fontWeight: '700', color: '#10b981' }}>support@maasadguru.org</p>
                                 </div>
-                                <div style={{ background: '#f1f5f9', padding: '20px', borderRadius: '12px', flex: '1 1 200px', textAlign: 'center', border: '1px solid #e2e8f0' }}>
+                                <div style={{ background: '#f1f5f9', padding: '20px', borderRadius: '12px', flex: '1 1 200px', textAlign: 'center', border: '1px solid #e2e8f0' }} className="ngo-card">
                                     <div style={{ fontSize: '24px', marginBottom: '8px' }}>💼</div>
-                                    <p style={{ margin: 0, fontSize: '14px', fontWeight: '700', color: '#1e3a8a' }}>Working Hours: 10AM - 6PM</p>
+                                    <p style={{ margin: 0, fontSize: '14px', fontWeight: '700', color: '#1e3a8a' }}>NGO Hours: 10AM - 6PM</p>
                                 </div>
                             </div>
                         </div>
@@ -249,17 +249,17 @@ const ContactUs = () => {
                         </div>
                     </div>
 
-                    <section id="faqs" style={styles.faqSection}>
-                        <h2 style={styles.sectionHeader}>Frequently Asked Questions</h2>
+                    <section id="faqs" style={styles.faqSection} className="reveal">
+                        <h2 style={styles.sectionHeader}>NGO Frequently Asked Questions</h2>
                         <div style={{ width: '60px', height: '4px', background: '#f59e0b', margin: '-30px auto 40px' }}></div>
                         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
                             {[
-                                { q: "How can I volunteer for Maasadguru projects?", a: "You can send an inquiry through the form above or call our founders directly. We also announce mega-camps on our home page marquee." },
-                                { q: "Are donations made to Maasadguru tax-exempt?", a: "Yes, we are registered under 12A and 80G. Donors can claim tax benefits as per the latest IT department regulations." },
-                                { q: "What districts do you currently operate in?", a: "Our main hub is in Uppal, Hyderabad, but we have active field operations in Warangal, Mahabubnagar, and Adilabad among other districts of Telangana." },
-                                { q: "How do you ensure transparency of funds?", a: "We maintain a digital auditing framework where field reports and financial updates are shared periodically with our supporters." }
+                                { q: "How can I volunteer for Maasadguru NGO projects?", a: "You can send an NGO inquiry through the form above or call our founders directly. We also announce mega-camps on our home page marquee." },
+                                { q: "Are donations made to Maasadguru NGO tax-exempt?", a: "Yes, we are a registered NGO under 12A and 80G. Donors can claim tax benefits as per current regulations." },
+                                { q: "What districts do you currently operate in as an NGO?", a: "Our main NGO hub is in Uppal, Hyderabad, with active field operations across 30+ districts of Telangana." },
+                                { q: "How do you ensure transparency of NGO funds?", a: "We maintain a digital auditing framework aligned with NGO Darpan standards where reports are shared periodically." }
                             ].map((faq, idx) => (
-                                <div key={idx} style={styles.faqItem}>
+                                <div key={idx} style={styles.faqItem} className="ngo-card">
                                     <h4 style={{ color: '#1e3a8a', margin: '0 0 10px 0', fontSize: '17px', fontWeight: '700' }}>{faq.q}</h4>
                                     <p style={{ color: '#444', margin: 0, fontSize: '15px', lineHeight: '1.6' }}>{faq.a}</p>
                                 </div>
@@ -267,8 +267,8 @@ const ContactUs = () => {
                         </div>
                     </section>
 
-                    <div style={styles.mapWrapper}>
-                        <h2 style={{ ...styles.sectionHeader, marginBottom: '10px' }}>Our Location (Uppal)</h2>
+                    <div style={styles.mapWrapper} className="reveal">
+                        <h2 style={{ ...styles.sectionHeader, marginBottom: '10px' }}>NGO Hub Location (Uppal)</h2>
                         <div style={{ width: '60px', height: '4px', background: '#f59e0b', margin: '0 auto 30px' }}></div>
                         <div style={{ borderRadius: '24px', overflow: 'hidden', border: '1px solid #e2e8f0', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)' }}>
                             <iframe
