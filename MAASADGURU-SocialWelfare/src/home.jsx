@@ -5,6 +5,7 @@ import MapComponent from './MapComponent.jsx';
 const Home = () => {
     const [width, setWidth] = useState(window.innerWidth);
     const isMobile = width < 768;
+    const isTablet = width >= 768 && width < 1024;
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,19 +16,19 @@ const Home = () => {
 
     const styles = {
         heroSection: {
-            height: isMobile ? '300px' : '450px',
-            background: 'linear-gradient(rgba(30, 58, 138, 0.7), rgba(30, 58, 138, 0.7)), url("https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop") center/cover no-repeat',
+            height: isMobile ? '350px' : (isTablet ? '400px' : '500px'),
+            background: 'linear-gradient(rgba(30, 58, 138, 0.75), rgba(30, 58, 138, 0.75)), url("https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop") center/cover no-repeat',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             color: '#fff',
             textAlign: 'center',
-            padding: '0 20px',
+            padding: isMobile ? '0 15px' : '0 40px',
         },
         marqueeContainer: {
             background: '#1e3a8a',
             color: '#fff',
-            padding: '10px 0',
+            padding: '12px 0',
             overflow: 'hidden',
             whiteSpace: 'nowrap',
             position: 'relative',
@@ -35,147 +36,155 @@ const Home = () => {
         marqueeText: {
             display: 'inline-block',
             paddingLeft: '100%',
-            animation: 'scroll 20s linear infinite',
-            fontSize: '14px',
+            animation: 'scroll 30s linear infinite',
+            fontSize: isMobile ? '13px' : '15px',
             fontWeight: '600',
         },
         mainContainer: {
             maxWidth: '1200px',
-            margin: '0 auto 40px',
-            padding: isMobile ? '0 10px' : '0 20px',
+            margin: '0 auto 60px',
+            padding: isMobile ? '0 12px' : '0 30px',
         },
         contentWrapper: {
             background: '#fff',
-            padding: isMobile ? '30px 15px' : '60px 40px',
-            marginTop: '40px',
+            padding: isMobile ? '35px 18px' : '65px 45px',
+            marginTop: isMobile ? '30px' : '50px',
             border: '1px solid #e5e7eb',
-            boxShadow: '0 10px 25px rgba(0,0,0,0.05)',
+            boxShadow: '0 15px 35px rgba(0,0,0,0.06)',
             position: 'relative',
             zIndex: 2,
-            borderRadius: '16px'
+            borderRadius: '24px'
         },
         sectionHeader: {
-            fontSize: isMobile ? '22px' : '36px',
+            fontSize: isMobile ? '26px' : (isTablet ? '32px' : '40px'),
             color: '#1e3a8a',
-            marginBottom: '10px',
+            marginBottom: '15px',
             textAlign: 'center',
             fontFamily: "'Outfit', sans-serif",
-            fontWeight: '800'
+            fontWeight: '800',
+            lineHeight: '1.2'
         },
         subHeader: {
-            fontSize: isMobile ? '18px' : '22px',
+            fontSize: isMobile ? '20px' : '24px',
             color: '#1e3a8a',
-            borderLeft: '4px solid #f59e0b',
+            borderLeft: '5px solid #f59e0b',
             paddingLeft: '15px',
-            marginBottom: '20px',
+            marginBottom: '25px',
             fontFamily: "'Outfit', sans-serif",
+            fontWeight: '700'
         },
         highlightBox: {
-            background: '#f0fdf4',
-            borderLeft: '5px solid #10b981',
-            padding: isMobile ? '20px' : '30px',
-            marginBottom: '50px',
-            borderRadius: '0 8px 8px 0'
+            background: 'linear-gradient(to right, #f0fdf4, #ffffff)',
+            borderLeft: '6px solid #10b981',
+            padding: isMobile ? '25px' : '35px',
+            marginBottom: isMobile ? '50px' : '70px',
+            borderRadius: '12px',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
         },
         impactGrid: {
             display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
-            gap: '20px',
-            marginBottom: '60px'
+            gridTemplateColumns: isMobile ? '1fr' : (isTablet ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)'),
+            gap: isMobile ? '20px' : '30px',
+            marginBottom: isMobile ? '60px' : '80px'
         },
         impactCard: {
             background: '#fff',
-            padding: '25px',
-            borderRadius: '12px',
+            padding: isMobile ? '30px 20px' : '40px 25px',
+            borderRadius: '20px',
             border: '1px solid #f1f5f9',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.04)',
             textAlign: 'center',
-            transition: 'transform 0.3s ease'
+            transition: 'all 0.3s ease'
         },
         serviceGrid: {
             display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-            gap: '30px',
-            marginBottom: '60px'
+            gridTemplateColumns: isMobile ? '1fr' : (isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)'),
+            gap: isMobile ? '25px' : '40px',
+            marginBottom: isMobile ? '60px' : '80px'
         },
         serviceCard: {
             background: '#f8fafc',
-            padding: '30px',
-            borderRadius: '16px',
+            padding: isMobile ? '35px 25px' : '45px 35px',
+            borderRadius: '24px',
             border: '1px solid #e2e8f0',
-            textAlign: 'center'
+            textAlign: 'center',
+            position: 'relative',
+            overflow: 'hidden'
         },
         iconCircle: {
-            width: '60px',
-            height: '60px',
+            width: '70px',
+            height: '70px',
             background: '#fff',
-            borderRadius: '50%',
+            borderRadius: '20px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '28px',
-            margin: '0 auto 20px',
-            boxShadow: '0 4px 10px rgba(0,0,0,0.05)'
+            fontSize: '32px',
+            margin: '0 auto 25px',
+            boxShadow: '0 8px 20px rgba(0,0,0,0.06)',
+            transform: 'rotate(-5deg)'
         },
         schemesGrid: {
             display: 'grid',
             gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-            gap: '20px',
-            marginBottom: '60px'
+            gap: isMobile ? '20px' : '30px',
+            marginBottom: isMobile ? '60px' : '80px'
         },
         schemeCard: {
             background: '#fff',
             border: '1px solid #e2e8f0',
-            borderRadius: '8px',
-            padding: '20px',
+            borderRadius: '16px',
+            padding: isMobile ? '20px' : '30px',
             display: 'flex',
-            gap: '15px',
-            alignItems: 'start'
+            flexDirection: isMobile ? 'column' : 'row',
+            gap: '20px',
+            alignItems: isMobile ? 'center' : 'start',
+            textAlign: isMobile ? 'center' : 'left'
         },
         testimonialGrid: {
             display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-            gap: '20px',
-            marginBottom: '60px'
+            gridTemplateColumns: isMobile ? '1fr' : (isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)'),
+            gap: '30px',
+            marginBottom: isMobile ? '60px' : '80px'
         },
         testimonialCard: {
             background: '#f8fafc',
-            padding: '25px',
-            borderRadius: '12px',
-            borderLeft: '5px solid #f59e0b',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
-            transition: 'transform 0.3s ease'
+            padding: '35px 30px',
+            borderRadius: '20px',
+            borderTop: '6px solid #f59e0b',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+            position: 'relative'
         },
         partnerStrip: {
             display: 'flex',
-            justifyContent: 'space-around',
+            justifyContent: 'center',
             flexWrap: 'wrap',
-            gap: '30px',
-            marginBottom: '40px',
-            opacity: 0.7,
-            filter: 'grayscale(100%)'
+            gap: isMobile ? '15px' : '25px',
+            marginBottom: '50px',
         },
         ctaSection: {
-            background: 'linear-gradient(135deg, #1e3a8a, #1e40af)',
-            padding: isMobile ? '40px 20px' : '60px 40px',
-            borderRadius: '16px',
+            background: 'linear-gradient(135deg, #1e3a8a, #0f172a)',
+            padding: isMobile ? '50px 25px' : '80px 50px',
+            borderRadius: '24px',
             color: '#fff',
             textAlign: 'center',
-            marginTop: '40px'
+            marginTop: '60px',
+            boxShadow: '0 20px 40px rgba(30, 58, 138, 0.2)'
         },
         button: {
             background: '#f59e0b',
             color: '#000',
-            padding: '12px 30px',
-            borderRadius: '8px',
+            padding: isMobile ? '14px 28px' : '16px 40px',
+            borderRadius: '12px',
             border: 'none',
-            fontSize: '16px',
-            fontWeight: '700',
+            fontSize: isMobile ? '16px' : '18px',
+            fontWeight: '800',
             cursor: 'pointer',
             marginTop: '20px',
             display: 'inline-block',
             textDecoration: 'none',
-            transition: 'background 0.3s'
+            transition: 'all 0.3s ease',
+            boxShadow: '0 10px 15px -3px rgba(245, 158, 11, 0.3)'
         }
     };
 
@@ -215,8 +224,7 @@ const Home = () => {
                         </div>
                         <div style={styles.highlightBox}>
                             <p style={{ margin: 0, fontSize: isMobile ? '16px' : '19px', color: '#065f46', lineHeight: '1.8', textAlign: 'center', fontWeight: '500' }}>
-                                <strong>Maasadguru NGO</strong> is a centralized movement aimed at bridging the gap between resources and the underserved.
-                                We operate with the transparency standards of <strong>NGO Darpan</strong>, ensuring that every initiative creates a direct impact on rural livelihoods.
+                                We operate with the transparency standards of <strong>Maasadguru Social Service</strong>, ensuring that every initiative creates a direct impact on rural livelihoods.
                             </p>
                         </div>
                     </section>
@@ -247,7 +255,7 @@ const Home = () => {
                             <h2 style={styles.sectionHeader}>NGO Facilitated Welfare Schemes</h2>
                             <div style={{ width: '60px', height: '4px', background: '#f59e0b', margin: '15px auto' }}></div>
                             <p style={{ maxWidth: '700px', margin: '15px auto 0', color: '#64748b', fontSize: '16px' }}>
-                                Following the <strong>NGO Darpan</strong> guidelines, we assist the community in accessing vital government programs.
+                                Following the <strong>Maasadguru Social Service</strong> guidelines, we assist the community in accessing vital government programs.
                             </p>
                         </div>
                         <div style={styles.schemesGrid}>
@@ -361,7 +369,7 @@ const Home = () => {
                                     ))}
                                 </div>
                                 <p style={{ fontSize: '15px', color: '#475569', lineHeight: '1.8' }}>
-                                    Following the <strong>NGO Darpan</strong> model of centralized transparency, Maasadguru focuses its operations primarily across the state of Telangana, with our central coordination hub located in <strong>Hyderabad</strong>.
+                                    Following the <strong>Maasadguru Social Service</strong> model of centralized transparency, Maasadguru focuses its operations primarily across the state of Telangana, with our central coordination hub located in <strong>Hyderabad</strong>.
                                     Our digital platform ensures that every district—from Adilabad to Khammam—is integrated into our monitoring network.
                                 </p>
                             </div>

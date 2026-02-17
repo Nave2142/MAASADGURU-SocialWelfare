@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Header from './header';
-import Footer from './footer';
-import Donate from './donate';
-import Home from './home';
-import GalleryPage from './gallery';
-import AboutUsPage from './aboutUs';
-import ServicesPage from './services';
-import ContactUsPage from './contactUs';
+const Header = React.lazy(() => import('./header'));
+const Footer = React.lazy(() => import('./footer'));
+const Donate = React.lazy(() => import('./donate'));
+const Home = React.lazy(() => import('./home'));
+const GalleryPage = React.lazy(() => import('./gallery'));
+const AboutUsPage = React.lazy(() => import('./aboutUs'));
+const ServicesPage = React.lazy(() => import('./services'));
+const ContactUsPage = React.lazy(() => import('./contactUs'));
+
+// Loading component for Suspense
+const LoadingSpinner = () => (
+  <div className="spinner-container">
+    <div className="spinner"></div>
+  </div>
+);
 
 // Scroll to top and refresh animations on route change
 const ScrollToTop = () => {
@@ -91,16 +98,18 @@ const App = () => {
     <Router>
       <ScrollToTop />
       <div style={styles.container}>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/gallery" element={<GalleryPage />} />
-          <Route path="/about" element={<AboutUsPage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/contact" element={<ContactUsPage />} />
-          <Route path="/donate" element={<Donate />} />
-        </Routes>
-        <Footer />
+        <Suspense fallback={<LoadingSpinner />}>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/about" element={<AboutUsPage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/contact" element={<ContactUsPage />} />
+            <Route path="/donate" element={<Donate />} />
+          </Routes>
+          <Footer />
+        </Suspense>
       </div>
     </Router>
   );

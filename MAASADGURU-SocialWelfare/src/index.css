@@ -21,9 +21,17 @@ body {
 /* Scroll Animations */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateY(15px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   will-change: opacity, transform;
+}
+
+@media (max-width: 768px) {
+  .reveal {
+    transition-duration: 0.4s;
+    transform: translateY(10px);
+    /* Smaller movement for smaller screens */
+  }
 }
 
 .reveal.active {
@@ -33,45 +41,39 @@ body {
 
 .reveal-instant {
   opacity: 0;
-  animation: fadeIn 0.8s ease-in forwards;
+  animation: fadeIn 0.6s ease-in forwards;
 }
 
-.logo-hover {
-  transition: transform 0.3s ease;
-}
-
-.logo-hover:hover {
-  transform: scale(1.05);
-}
-
-/* Pulse Animation for NGO Highlights */
-@keyframes pulse-gold {
-  0% {
-    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
-  }
-
-  70% {
-    box-shadow: 0 0 0 10px rgba(245, 158, 11, 0);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
-  }
-}
-
-.ngo-badge {
-  animation: pulse-gold 2s infinite;
-}
-
-/* Card Hover Effects */
+/* Card Hover Effects - Disable/Simplify for Touch */
 .ngo-card {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
 }
 
-.ngo-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  border-color: var(--ngo-gold) !important;
+@media (hover: hover) {
+  .ngo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-color: var(--ngo-gold) !important;
+  }
+}
+
+/* Global Mobile Fixes */
+@media (max-width: 768px) {
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.2 !important;
+  }
+
+  .ngo-card {
+    padding: 20px !important;
+  }
+
+  section {
+    margin-bottom: 40px !important;
+  }
 }
 
 @keyframes fadeIn {
@@ -84,6 +86,37 @@ body {
   }
 }
 
+/* Loading Spinner */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  width: 100%;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(30, 58, 138, 0.1);
+  border-left-color: var(--ngo-gold);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .fade-in {
-  animation: fadeIn 1.2s ease-in;
+  animation: fadeIn 0.8s ease-in;
+}
+
+/* Utility Classes */
+.text-center-mobile {
+  @media (max-width: 768px) {
+    text-align: center !important;
+  }
 }

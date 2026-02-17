@@ -13,100 +13,110 @@ const Footer = () => {
 
     const styles = {
         footer: {
-            background: '#1b263b',
-            color: '#e2e8f0',
+            background: '#0f172a',
+            color: '#94a3b8',
             fontFamily: "'Inter', sans-serif",
-            fontSize: '13px',
-            borderTop: '5px solid #f59e0b',
+            fontSize: '14px',
+            borderTop: '6px solid #f59e0b',
+            marginTop: '60px'
         },
         topSection: {
-            padding: isMobile ? '30px 5%' : '40px 10%',
+            padding: isMobile ? '60px 25px' : '80px 50px',
+            maxWidth: '1280px',
+            margin: '0 auto',
             display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : (isTablet ? '1fr 1fr' : 'repeat(4, 1fr)'),
-            gap: isMobile ? '25px' : '30px',
-            borderBottom: '1px solid #334155',
+            gridTemplateColumns: isMobile ? '1fr' : (isTablet ? 'repeat(2, 1fr)' : '1.5fr 1fr 1fr 1.2fr'),
+            gap: isMobile ? '40px' : '60px',
         },
         footerCol: {
             display: 'flex',
             flexDirection: 'column',
-            gap: '12px',
+        },
+        brandCol: {
+            maxWidth: '300px'
         },
         footerTitle: {
             color: '#ffffff',
             fontSize: '16px',
-            fontWeight: '700',
-            marginBottom: '8px',
+            fontWeight: '800',
+            marginBottom: '25px',
             textTransform: 'uppercase',
-            borderBottom: isMobile ? '1px solid #334155' : 'none',
-            paddingBottom: isMobile ? '5px' : '0',
+            letterSpacing: '1px',
+            fontFamily: "'Outfit', sans-serif"
         },
         footerLink: {
-            color: '#cbd5e1',
+            color: '#94a3b8',
             textDecoration: 'none',
-            marginBottom: '5px',
+            marginBottom: '15px',
             display: 'block',
-            transition: 'color 0.2s',
+            transition: 'all 0.3s ease',
+            fontSize: '15px'
         },
         bottomSection: {
-            padding: '20px 5%',
+            padding: '30px 25px',
             textAlign: 'center',
-            background: '#0f172a',
-            color: '#94a3b8',
-            fontSize: '11px',
-        },
-        govtText: {
-            marginTop: '10px',
-            fontStyle: 'italic',
-            opacity: 0.8,
+            background: '#020617',
+            borderTop: '1px solid #1e293b',
+            color: '#64748b',
+            fontSize: '12px',
         }
     };
 
     return (
-        <footer id="contact" style={styles.footer}>
+        <footer style={styles.footer}>
             <div style={styles.topSection}>
-                <div style={styles.footerCol}>
-                    <h4 style={styles.footerTitle}>About NGO Portal</h4>
-                    <a href="#" style={styles.footerLink}>Overview</a>
-                    <a href="#" style={styles.footerLink}>Terms of Use</a>
-                    <a href="#" style={styles.footerLink}>Privacy Policy</a>
-                    <a href="#" style={styles.footerLink}>Disclaimer</a>
-                </div>
-
-                <div style={styles.footerCol}>
-                    <h4 style={styles.footerTitle}>Important Links</h4>
-                    <a href="https://niti.gov.in/" target="_blank" rel="noopener noreferrer" style={styles.footerLink}>NITI Aayog</a>
-                    <a href="https://mib.gov.in/" target="_blank" rel="noopener noreferrer" style={styles.footerLink}>Ministry Information</a>
-                    <a href="https://www.india.gov.in/" target="_blank" rel="noopener noreferrer" style={styles.footerLink}>National Portal</a>
-                    <a href="https://digitalindia.gov.in/" target="_blank" rel="noopener noreferrer" style={styles.footerLink}>Digital India</a>
-                </div>
-
-                <div style={styles.footerCol}>
-                    <h4 style={styles.footerTitle}>Resources</h4>
-                    <a href="./pdf/pdf.html" style={styles.footerLink} target="_blank" rel="noopener noreferrer">User Manuals</a>
-                    <a href="#" style={styles.footerLink}>Guidelines</a>
-                    <a href="#" style={styles.footerLink}>FAQs</a>
-                    <a href="#" style={styles.footerLink}>Grievance</a>
-                </div>
-
-                <div style={styles.footerCol}>
-                    <h4 style={styles.footerTitle}>Contact</h4>
-                    <p style={{ margin: '0 0 10px', lineHeight: '1.5' }}>
-                        <strong>Maasadguru NGO</strong><br />
-                        Hyderabad, Telangana<br />
-                        India
+                <div style={{ ...styles.footerCol, ...styles.brandCol }}>
+                    <h3 style={{ ...styles.footerTitle, color: '#f59e0b', fontSize: '20px', marginBottom: '20px' }}>Maasadguru</h3>
+                    <p style={{ lineHeight: '1.8', marginBottom: '20px' }}>
+                        Dedicated to professionalizing social welfare and community support across Telangana. Since 2024, our mission has been to serve with transparency and impact.
                     </p>
-                    <p style={{ margin: 0 }}>Email: support@maasadguru.org</p>
-                    <p style={{ margin: '8px 0 0', lineHeight: '1.4' }}>
-                        Call: +91 8143177143<br />
-                        Call: +91 9908709764
-                    </p>
+                    <div style={{ display: 'flex', gap: '15px' }}>
+                        {/* Social icons could go here */}
+                    </div>
+                </div>
+
+                <div style={styles.footerCol}>
+                    <h4 style={styles.footerTitle}>Quick Links</h4>
+                    <a href="/about" style={styles.footerLink}>About Our Mission</a>
+                    <a href="/services" style={styles.footerLink}>Services & Programs</a>
+                    <a href="/gallery" style={styles.footerLink}>Impact Gallery</a>
+                    <a href="/donate" style={styles.footerLink}>Support Us</a>
+                </div>
+
+                <div style={styles.footerCol}>
+                    <h4 style={styles.footerTitle}>Compliance</h4>
+                    <a href="https://niti.gov.in/" target="_blank" rel="noopener noreferrer" style={styles.footerLink}>NITI Aayog Darpan</a>
+                    <a href="#" style={styles.footerLink}>Annual Reports</a>
+                    <a href="#" style={styles.footerLink}>80G/12A Status</a>
+                    <a href="#" style={styles.footerLink}>Transparency Code</a>
+                </div>
+
+                <div style={styles.footerCol}>
+                    <h4 style={styles.footerTitle}>Direct Contact</h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        <div style={{ display: 'flex', gap: '12px' }}>
+                            <span style={{ color: '#f59e0b' }}>📍</span>
+                            <span>H.No: 1-7-143, Uppal, Hyderabad, 500039</span>
+                        </div>
+                        <div style={{ display: 'flex', gap: '12px' }}>
+                            <span style={{ color: '#f59e0b' }}>📞</span>
+                            <span>+91 81431 77143<br />+91 99087 09764</span>
+                        </div>
+                        <div style={{ display: 'flex', gap: '12px' }}>
+                            <span style={{ color: '#f59e0b' }}>✉️</span>
+                            <span>maasadguru@gmail.com</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div style={styles.bottomSection}>
-                <div style={{ marginBottom: '10px' }}>Content Owned, Maintained and Updated by MAASADGURU NGO</div>
-                <div style={styles.govtText}>NGO Darpan Compliant Portal</div>
-                <div style={{ marginTop: '15px', color: '#64748b' }}>© 2026 MAASADGURU NGO. All Rights Reserved.</div>
+                <p style={{ margin: '0 0 10px 0' }}>Approved by Maasadguru Social Service Governance Committee</p>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap', marginBottom: '15px' }}>
+                    <span>Registered Charity: 584/2024</span>
+                    <span>PAN: AAATM1431C</span>
+                </div>
+                <div style={{ color: '#475569' }}>© 2026 Maasadguru Social Service. All rights reserved. Professional Social Welfare.</div>
             </div>
         </footer>
     );

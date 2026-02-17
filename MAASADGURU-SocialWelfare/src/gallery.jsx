@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 const Gallery = () => {
     const [width, setWidth] = useState(window.innerWidth);
     const isMobile = width < 768;
+    const isTablet = width >= 768 && width < 1024;
 
     useEffect(() => {
         const handleResize = () => setWidth(window.innerWidth);
@@ -45,35 +46,37 @@ const Gallery = () => {
     const styles = {
         mainContainer: {
             maxWidth: '1200px',
-            margin: '0 auto 40px',
-            padding: isMobile ? '0 10px' : '0 20px',
+            margin: '0 auto 60px',
+            padding: isMobile ? '0 12px' : '0 30px',
         },
         contentWrapper: {
             background: '#fff',
-            padding: isMobile ? '20px' : '40px',
-            marginTop: '40px',
+            padding: isMobile ? '35px 20px' : '65px 45px',
+            marginTop: isMobile ? '30px' : '50px',
             border: '1px solid #e5e7eb',
-            boxShadow: '0 4px 6px rgba(0,0,0,0.05)',
-            borderRadius: '8px'
+            boxShadow: '0 15px 35px rgba(0,0,0,0.06)',
+            borderRadius: '24px'
         },
         sectionHeader: {
-            fontSize: isMobile ? '20px' : '24px',
+            fontSize: isMobile ? '22px' : '28px',
             color: '#1e3a8a',
-            borderBottom: '2px solid #f59e0b',
-            paddingBottom: '8px',
-            marginBottom: '20px',
+            borderBottom: '3px solid #f59e0b',
+            paddingBottom: '10px',
+            marginBottom: '30px',
             display: 'inline-block',
             fontFamily: "'Outfit', sans-serif",
             textTransform: 'uppercase',
+            fontWeight: '800'
         },
         sliderContainer: {
             position: 'relative',
             width: '100%',
-            height: isMobile ? '250px' : '450px',
+            height: isMobile ? '300px' : (isTablet ? '400px' : '550px'),
             overflow: 'hidden',
-            borderRadius: '8px',
+            borderRadius: '24px',
             marginBottom: '40px',
             background: '#000',
+            boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)'
         },
         slide: {
             width: '100%',
@@ -88,11 +91,10 @@ const Gallery = () => {
             alignItems: 'flex-end',
         },
         slideCaption: {
-            background: 'rgba(0, 0, 0, 0.6)',
+            background: 'linear-gradient(transparent, rgba(0, 0, 0, 0.85))',
             color: '#fff',
             width: '100%',
-            padding: isMobile ? '15px' : '20px 40px',
-            backdropFilter: 'blur(5px)',
+            padding: isMobile ? '40px 20px 20px' : '80px 40px 40px',
         }
     };
 
@@ -100,7 +102,7 @@ const Gallery = () => {
         <div style={styles.mainContainer}>
             <div style={styles.contentWrapper} className="reveal-instant">
                 <section id="gallery">
-                    <h2 style={styles.sectionHeader}>NGO Impact Gallery</h2>
+                    <h2 style={styles.sectionHeader}>Impact Gallery</h2>
                     <div style={styles.sliderContainer}>
                         {images.map((img, index) => (
                             <div
@@ -113,26 +115,30 @@ const Gallery = () => {
                                 }}
                             >
                                 <div style={styles.slideCaption}>
-                                    <h3 style={{ margin: '0 0 5px 0', fontSize: isMobile ? '16px' : '20px', fontWeight: '700' }}>{img.title}</h3>
-                                    <p style={{ margin: 0, fontSize: isMobile ? '12px' : '14px', opacity: 0.9 }}>{img.desc} - Verified NGO Project</p>
+                                    <h3 style={{ margin: '0 0 8px 0', fontSize: isMobile ? '20px' : '28px', fontWeight: '800', fontFamily: "'Outfit', sans-serif" }}>{img.title}</h3>
+                                    <p style={{ margin: 0, fontSize: isMobile ? '14px' : '16px', opacity: 0.9, lineHeight: 1.5 }}>{img.desc} - Verified Social Service Activity</p>
                                 </div>
                             </div>
                         ))}
-                        <div style={{ position: 'absolute', bottom: '15px', right: isMobile ? '15px' : '40px', zIndex: 2, display: 'flex', gap: '8px' }}>
+                        <div style={{ position: 'absolute', bottom: '25px', right: isMobile ? '20px' : '40px', zIndex: 2, display: 'flex', gap: '10px' }}>
                             {images.map((_, index) => (
                                 <div
                                     key={index}
                                     style={{
-                                        width: '8px',
-                                        height: '8px',
-                                        borderRadius: '50%',
-                                        background: index === currentIndex ? '#f59e0b' : 'rgba(255,255,255,0.5)',
-                                        cursor: 'pointer'
+                                        width: index === currentIndex ? '30px' : '10px',
+                                        height: '10px',
+                                        borderRadius: '10px',
+                                        background: index === currentIndex ? '#f59e0b' : 'rgba(255,255,255,0.4)',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.3s ease'
                                     }}
                                     onClick={() => setCurrentIndex(index)}
                                 />
                             ))}
                         </div>
+                    </div>
+                    <div style={{ textAlign: 'center', color: '#64748b', fontSize: '15px' }}>
+                        <p>Documenting our journey across the districts of Telangana.</p>
                     </div>
                 </section>
             </div>
