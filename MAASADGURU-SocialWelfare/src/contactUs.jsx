@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import MapComponent from './MapComponent.jsx';
 
 const ContactUs = () => {
     const [width, setWidth] = useState(window.innerWidth);
@@ -12,101 +11,283 @@ const ContactUs = () => {
     }, []);
 
     const styles = {
+        heroSection: {
+            height: isMobile ? '250px' : '350px',
+            background: 'linear-gradient(rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.8)), url("https://images.unsplash.com/photo-1577563906417-007f17c7d7a9?q=80&w=2070&auto=format&fit=crop") center/cover no-repeat',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#fff',
+            textAlign: 'center',
+            padding: '0 20px',
+        },
         mainContainer: {
             maxWidth: '1200px',
-            margin: '0 auto 40px',
-            padding: isMobile ? '0 10px' : '0 20px',
+            margin: '0 auto 60px',
+            padding: isMobile ? '0 15px' : '0 20px',
         },
         contentWrapper: {
             background: '#fff',
-            padding: isMobile ? '20px' : '40px',
-            marginTop: '40px',
+            padding: isMobile ? '30px 15px' : '60px 40px',
+            marginTop: '-60px',
             border: '1px solid #e5e7eb',
-            boxShadow: '0 4px 6px rgba(0,0,0,0.05)',
-            borderRadius: '8px'
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+            borderRadius: '20px',
+            position: 'relative',
+            zIndex: 10,
         },
         sectionHeader: {
-            fontSize: isMobile ? '20px' : '24px',
+            fontSize: isMobile ? '28px' : '36px',
             color: '#1e3a8a',
-            borderBottom: '2px solid #f59e0b',
-            paddingBottom: '8px',
-            marginBottom: '20px',
-            display: 'inline-block',
+            textAlign: 'center',
             fontFamily: "'Outfit', sans-serif",
-            textTransform: 'uppercase',
+            fontWeight: '800',
+            marginBottom: '40px'
+        },
+        subHeader: {
+            fontSize: '20px',
+            color: '#1e3a8a',
+            fontWeight: '700',
+            fontFamily: "'Outfit', sans-serif",
+            marginBottom: '15px'
         },
         contactGrid: {
             display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '1.2fr 0.8fr',
+            gap: '50px',
+        },
+        founderGrid: {
+            display: 'grid',
             gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-            gap: '40px',
-            marginTop: '20px'
+            gap: '20px',
+            marginBottom: '40px'
         },
-        infoBox: {
+        founderCard: {
             background: '#f8fafc',
-            padding: '30px',
-            borderRadius: '8px',
-            border: '1px solid #e2e8f0'
+            padding: '25px',
+            borderRadius: '16px',
+            border: '1px solid #e2e8f0',
+            transition: 'transform 0.3s ease',
+            cursor: 'default'
         },
-        form: {
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '15px'
+        formCard: {
+            padding: '40px',
+            background: '#fff',
+            borderRadius: '24px',
+            border: '1px solid #f1f5f9',
+            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.05)'
+        },
+        label: {
+            display: 'block',
+            marginBottom: '8px',
+            fontSize: '14px',
+            fontWeight: '600',
+            color: '#475569'
         },
         input: {
-            padding: '12px',
-            borderRadius: '4px',
+            width: '100%',
+            padding: '12px 16px',
+            borderRadius: '10px',
             border: '1px solid #cbd5e1',
-            fontFamily: "'Inter', sans-serif"
+            marginBottom: '20px',
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '15px',
+            outline: 'none',
+            transition: 'border-color 0.2s',
+            boxSizing: 'border-box'
         },
         textarea: {
-            padding: '12px',
-            borderRadius: '4px',
+            width: '100%',
+            padding: '12px 16px',
+            borderRadius: '10px',
             border: '1px solid #cbd5e1',
-            minHeight: '120px',
-            fontFamily: "'Inter', sans-serif"
+            minHeight: '150px',
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '15px',
+            outline: 'none',
+            marginBottom: '25px',
+            boxSizing: 'border-box'
         },
         submitBtn: {
-            background: '#1e3a8a',
-            color: '#fff',
-            padding: '12px 25px',
+            background: '#f59e0b',
+            color: '#000',
+            padding: '14px 35px',
             border: 'none',
-            borderRadius: '4px',
+            borderRadius: '10px',
             cursor: 'pointer',
-            fontWeight: '600',
-            alignSelf: 'flex-start'
+            fontWeight: '800',
+            fontFamily: "'Outfit', sans-serif",
+            fontSize: '16px',
+            width: '100%',
+            boxShadow: '0 4px 6px rgba(245, 158, 11, 0.3)',
+            transition: 'all 0.3s ease'
+        },
+        secondaryButton: {
+            background: 'transparent',
+            color: '#fff',
+            padding: '12px 30px',
+            borderRadius: '10px',
+            border: '2px solid #fff',
+            fontSize: '16px',
+            fontWeight: '700',
+            cursor: 'pointer',
+            marginLeft: '10px',
+            display: 'inline-block',
+            transition: 'all 0.3s'
+        },
+        faqSection: {
+            marginTop: '80px',
+            paddingTop: '40px',
+            borderTop: '1px solid #f1f5f9'
+        },
+        faqItem: {
+            background: '#fff',
+            border: '1px solid #e2e8f0',
+            borderRadius: '12px',
+            padding: '20px',
+            marginBottom: '15px',
+            textAlign: 'left'
+        },
+        mapWrapper: {
+            marginTop: '60px',
+            padding: isMobile ? '20px 15px' : '40px',
+            background: '#f8fafc',
+            borderRadius: '24px',
+            textAlign: 'center'
         }
     };
 
     return (
-        <div style={styles.mainContainer}>
-            <div style={styles.contentWrapper}>
-                <h2 style={styles.sectionHeader}>Contact Us</h2>
-                <div style={styles.contactGrid}>
-                    <div style={styles.infoBox}>
-                        <h3 style={{ color: '#1e3a8a', marginBottom: '20px' }}>Get in Touch</h3>
-                        <p style={{ marginBottom: '15px' }}><strong>📍 Address:</strong> Hyderabad, Telangana, India</p>
-                        <p style={{ marginBottom: '15px' }}><strong>📧 Email:</strong> support@maasadguru.org</p>
-                        <p style={{ marginBottom: '15px' }}><strong>📞 Founder:</strong> +91 8143177143</p>
-                        <p style={{ marginBottom: '15px' }}><strong>📞 Co-Founder:</strong> +91 9908709764</p>
+        <>
+            <div style={styles.heroSection}>
+                <div style={{ maxWidth: '800px' }}>
+                    <h1 style={{ fontSize: isMobile ? '32px' : '52px', margin: '0 0 10px 0', fontFamily: "'Outfit', sans-serif", fontWeight: '800' }}>Get in Touch</h1>
+                    <p style={{ fontSize: isMobile ? '16px' : '20px', opacity: 0.9, marginBottom: '25px' }}>We're here to answer any questions and hear your suggestions.</p>
+                    <div style={{ display: 'flex', gap: '15px', justifyContent: 'center' }}>
+                        <button onClick={() => document.getElementById('inquiry-form').scrollIntoView({ behavior: 'smooth' })} style={{ ...styles.submitBtn, width: 'auto' }}>Send Message</button>
+                        <button onClick={() => document.getElementById('faqs').scrollIntoView({ behavior: 'smooth' })} style={styles.secondaryButton}>View FAQs</button>
                     </div>
-
-                    <div>
-                        <form style={styles.form} onSubmit={(e) => e.preventDefault()}>
-                            <input type="text" placeholder="Your Name" style={styles.input} />
-                            <input type="email" placeholder="Your Email" style={styles.input} />
-                            <input type="text" placeholder="Subject" style={styles.input} />
-                            <textarea placeholder="Your Message" style={styles.textarea}></textarea>
-                            <button type="submit" style={styles.submitBtn}>Send Message</button>
-                        </form>
-                    </div>
-                </div>
-
-                <div style={{ marginTop: '40px', padding: isMobile ? '20px' : '40px', background: '#f8fafc', borderRadius: '8px' }}>
-                    <h3 style={{ ...styles.sectionHeader, marginBottom: '30px' }}>Our Location</h3>
-                    <MapComponent isMobile={isMobile} />
                 </div>
             </div>
-        </div>
+
+            <div style={styles.mainContainer}>
+                <div style={styles.contentWrapper}>
+                    <div style={styles.contactGrid}>
+                        <div>
+                            <h2 style={{ ...styles.sectionHeader, textAlign: 'left', marginBottom: '30px' }}>Contact Information</h2>
+                            <p style={{ color: '#64748b', marginBottom: '40px', lineHeight: '1.7', fontSize: '16px' }}>
+                                Reach out to our leadership directly or visit our coordination hub in Hyderabad. Your support helps us bridge the gap for more families in Telangana.
+                            </p>
+
+                            <div style={styles.founderGrid}>
+                                <div style={styles.founderCard}>
+                                    <div style={{ fontSize: '24px', marginBottom: '15px' }}>👤</div>
+                                    <h3 style={{ margin: '0 0 5px 0', color: '#1e3a8a', fontSize: '18px', fontWeight: '700' }}>Jatothu Ravi</h3>
+                                    <p style={{ margin: '0 0 10px 0', fontSize: '13px', color: '#059669', fontWeight: '700', letterSpacing: '0.5px' }}>FOUNDER</p>
+                                    <a href="tel:+918143177143" style={{ margin: 0, fontSize: '16px', fontWeight: '800', color: '#334155', textDecoration: 'none' }}>📞 +91 8143177143</a>
+                                </div>
+                                <div style={styles.founderCard}>
+                                    <div style={{ fontSize: '24px', marginBottom: '15px' }}>👤</div>
+                                    <h3 style={{ margin: '0 0 5px 0', color: '#1e3a8a', fontSize: '18px', fontWeight: '700' }}>Gugulothu Naveen</h3>
+                                    <p style={{ margin: '0 0 10px 0', fontSize: '13px', color: '#059669', fontWeight: '700', letterSpacing: '0.5px' }}>CO-FOUNDER</p>
+                                    <a href="tel:+919908709764" style={{ margin: 0, fontSize: '16px', fontWeight: '800', color: '#334155', textDecoration: 'none' }}>📞 +91 9908709764</a>
+                                </div>
+                            </div>
+
+                            <div style={{ ...styles.founderCard, background: '#f0f9ff', border: '1px solid #bae6fd' }}>
+                                <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                                    <div style={{ fontSize: '30px' }}>📍</div>
+                                    <div>
+                                        <h3 style={{ margin: '0 0 5px 0', color: '#1e3a8a', fontSize: '18px', fontWeight: '700' }}>Coordination Center</h3>
+                                        <p style={{ margin: 0, color: '#475569', fontSize: '15px', lineHeight: '1.6' }}>
+                                            Uppal, Hyderabad,<br />
+                                            Telangana 500039, India
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style={{ marginTop: '40px', display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+                                <div style={{ background: '#f1f5f9', padding: '20px', borderRadius: '12px', flex: '1 1 200px', textAlign: 'center', border: '1px solid #e2e8f0' }}>
+                                    <div style={{ fontSize: '24px', marginBottom: '8px' }}>📧</div>
+                                    <p style={{ margin: 0, fontSize: '14px', fontWeight: '700', color: '#1e3a8a' }}>support@maasadguru.org</p>
+                                </div>
+                                <div style={{ background: '#f1f5f9', padding: '20px', borderRadius: '12px', flex: '1 1 200px', textAlign: 'center', border: '1px solid #e2e8f0' }}>
+                                    <div style={{ fontSize: '24px', marginBottom: '8px' }}>💼</div>
+                                    <p style={{ margin: 0, fontSize: '14px', fontWeight: '700', color: '#1e3a8a' }}>Working Hours: 10AM - 6PM</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="inquiry-form">
+                            <div style={styles.formCard}>
+                                <h3 style={{ ...styles.subHeader, textAlign: 'center', marginBottom: '25px', fontSize: '24px' }}>Send an Inquiry</h3>
+                                <form onSubmit={(e) => e.preventDefault()}>
+                                    <div>
+                                        <label style={styles.label}>Full Name</label>
+                                        <input type="text" placeholder="Your Full Name" style={styles.input} />
+                                    </div>
+
+                                    <div>
+                                        <label style={styles.label}>Email Address</label>
+                                        <input type="email" placeholder="email@example.com" style={styles.input} />
+                                    </div>
+
+                                    <div>
+                                        <label style={styles.label}>Phone Number</label>
+                                        <input type="tel" placeholder="+91 XXXXX XXXXX" style={styles.input} />
+                                    </div>
+
+                                    <div>
+                                        <label style={styles.label}>Message</label>
+                                        <textarea placeholder="Tell us how we can help..." style={styles.textarea}></textarea>
+                                    </div>
+
+                                    <button type="submit" style={styles.submitBtn}>SUBMIT INQUIRY</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section id="faqs" style={styles.faqSection}>
+                        <h2 style={styles.sectionHeader}>Frequently Asked Questions</h2>
+                        <div style={{ width: '60px', height: '4px', background: '#f59e0b', margin: '-30px auto 40px' }}></div>
+                        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+                            {[
+                                { q: "How can I volunteer for Maasadguru projects?", a: "You can send an inquiry through the form above or call our founders directly. We also announce mega-camps on our home page marquee." },
+                                { q: "Are donations made to Maasadguru tax-exempt?", a: "Yes, we are registered under 12A and 80G. Donors can claim tax benefits as per the latest IT department regulations." },
+                                { q: "What districts do you currently operate in?", a: "Our main hub is in Uppal, Hyderabad, but we have active field operations in Warangal, Mahabubnagar, and Adilabad among other districts of Telangana." },
+                                { q: "How do you ensure transparency of funds?", a: "We maintain a digital auditing framework where field reports and financial updates are shared periodically with our supporters." }
+                            ].map((faq, idx) => (
+                                <div key={idx} style={styles.faqItem}>
+                                    <h4 style={{ color: '#1e3a8a', margin: '0 0 10px 0', fontSize: '17px', fontWeight: '700' }}>{faq.q}</h4>
+                                    <p style={{ color: '#444', margin: 0, fontSize: '15px', lineHeight: '1.6' }}>{faq.a}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    <div style={styles.mapWrapper}>
+                        <h2 style={{ ...styles.sectionHeader, marginBottom: '10px' }}>Our Location (Uppal)</h2>
+                        <div style={{ width: '60px', height: '4px', background: '#f59e0b', margin: '0 auto 30px' }}></div>
+                        <div style={{ borderRadius: '24px', overflow: 'hidden', border: '1px solid #e2e8f0', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)' }}>
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.5!2d78.565!3d17.40!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99362ecf167d%3A0x8fb6d7551b66436d!2sUppal%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                                width="100%"
+                                height={isMobile ? "350" : "500"}
+                                style={{ border: 0 }}
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                        </div>
+                        <p style={{ marginTop: '25px', fontSize: '15px', color: '#64748b', maxWidth: '600px', margin: '25px auto 0', lineHeight: '1.6' }}>
+                            Our central hub in Uppal serves as the nerve center for all social welfare coordination across Telangana districts.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </>
     );
 };
 

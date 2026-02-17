@@ -74,15 +74,15 @@ const Footer = () => {
 
                 <div style={styles.footerCol}>
                     <h4 style={styles.footerTitle}>Important Links</h4>
-                    <a href="#" style={styles.footerLink}>NITI Aayog</a>
-                    <a href="#" style={styles.footerLink}>Ministry Information</a>
-                    <a href="#" style={styles.footerLink}>National Portal</a>
-                    <a href="#" style={styles.footerLink}>Digital India</a>
+                    <a href="https://niti.gov.in/" target="_blank" rel="noopener noreferrer" style={styles.footerLink}>NITI Aayog</a>
+                    <a href="https://mib.gov.in/" target="_blank" rel="noopener noreferrer" style={styles.footerLink}>Ministry Information</a>
+                    <a href="https://www.india.gov.in/" target="_blank" rel="noopener noreferrer" style={styles.footerLink}>National Portal</a>
+                    <a href="https://digitalindia.gov.in/" target="_blank" rel="noopener noreferrer" style={styles.footerLink}>Digital India</a>
                 </div>
 
                 <div style={styles.footerCol}>
                     <h4 style={styles.footerTitle}>Resources</h4>
-                    <a href="#" style={styles.footerLink}>User Manuals</a>
+                    <a href="./pdf/pdf.html" style={styles.footerLink} target="_blank" rel="noopener noreferrer">User Manuals</a>
                     <a href="#" style={styles.footerLink}>Guidelines</a>
                     <a href="#" style={styles.footerLink}>FAQs</a>
                     <a href="#" style={styles.footerLink}>Grievance</a>

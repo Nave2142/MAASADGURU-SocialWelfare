@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 
 
-const MapComponent = ({ isMobile }) => {
-    // These coordinates are based on the Telangana.svg viewBox="0 0 800 533"
-    // Hyderabad is roughly at 332, 340 as per the labels in the SVG
-    const hqX = 332;
-    const hqY = 340;
+const MapComponent = ({ isMobile, hqLabel = "HYDERABAD (HQ)", hqCoords = { x: 332, y: 340 } }) => {
+    const { x: hqX, y: hqY } = hqCoords;
 
     return (
         <div style={{ textAlign: 'center', position: 'relative' }}>
@@ -60,7 +57,7 @@ const MapComponent = ({ isMobile }) => {
                     <circle cx={hqX} cy={hqY} r="5" fill="#1e3a8a" />
 
                     {/* HQ Label with backdrop for readability */}
-                    <rect x={hqX - 50} y={hqY + 15} width="100" height="20" rx="4" fill="rgba(255,255,255,0.8)" />
+                    <rect x={hqX - 60} y={hqY + 15} width="120" height="20" rx="4" fill="rgba(255,255,255,0.8)" />
                     <text
                         x={hqX}
                         y={hqY + 30}
@@ -70,7 +67,7 @@ const MapComponent = ({ isMobile }) => {
                         textAnchor="middle"
                         style={{ letterSpacing: '0.5px' }}
                     >
-                        HYDERABAD (HQ)
+                        {hqLabel}
                     </text>
                 </svg>
             </div>
@@ -89,7 +86,7 @@ const MapComponent = ({ isMobile }) => {
                     boxShadow: '0 0 5px #f59e0b'
                 }}></span>
                 <p style={{ margin: 0, fontSize: '13px', color: '#475569', fontWeight: '500' }}>
-                    Active presence across all 33 districts from our Hyderabad Hub
+                    Active presence across all 33 districts from our {hqLabel.split(' ')[0]} Hub
                 </p>
             </div>
         </div>

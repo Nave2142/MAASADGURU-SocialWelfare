@@ -143,26 +143,11 @@ const AboutUs = () => {
                         border: '1px solid #eee'
                     }}>
                         <div style={{ textAlign: 'center' }}>
-                            <svg viewBox="150 150 400 600" style={{ width: '100%', maxHeight: '350px' }}>
-                                <path
-                                    d="M380,180 L420,200 L450,250 L460,320 L440,380 L460,450 L430,520 L400,580 L320,600 L250,550 L200,500 L180,420 L210,350 L200,280 L230,220 L280,180 L330,170 Z"
-                                    fill="#f1f5f9"
-                                    stroke="#1e3a8a"
-                                    strokeWidth="1.5"
-                                />
-                                <circle cx="280" cy="450" r="10" fill="#f59e0b">
-                                    <animate attributeName="r" values="8;14;8" dur="2s" repeatCount="indefinite" />
-                                    <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
-                                </circle>
-                                <circle cx="280" cy="450" r="4" fill="#fff" />
-                                <text x="295" y="455" fontSize="16" fontWeight="bold" fill="#1e3a8a">HYDERABAD (HQ)</text>
-
-                                <text x="180" y="200" fontSize="24" fontWeight="800" fill="#cbd5e1" opacity="0.3">TELANGANA</text>
-                            </svg>
+                            <MapComponent isMobile={isMobile} hqLabel="UPPAL (HQ)" />
                         </div>
                         <div>
                             <p style={{ fontSize: '15px', color: '#4b5563', lineHeight: '1.7' }}>
-                                Headquartered in <strong>Hyderabad</strong>, our reach extends across the diverse landscapes of Telangana. We maintain active monitoring in over 30 districts, ensuring that no community is left behind in the digital and social welfare revolution.
+                                Headquartered in <strong>Uppal, Hyderabad</strong>, our reach extends across the diverse landscapes of Telangana. We maintain active monitoring in over 30 districts, ensuring that no community is left behind in the digital and social welfare revolution.
                             </p>
                             <ul style={{ fontSize: '14px', color: '#64748b', marginTop: '15px', paddingLeft: '20px' }}>
                                 <li style={{ marginBottom: '8px' }}>Regional Hub: Warangal District</li>
