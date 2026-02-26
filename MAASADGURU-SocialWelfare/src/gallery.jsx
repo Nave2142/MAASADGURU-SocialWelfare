@@ -2,41 +2,41 @@ import React, { useState, useEffect } from 'react';
 
 const Gallery = () => {
     const [width, setWidth] = useState(window.innerWidth);
+    const [images, setImages] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [loading, setLoading] = useState(true);
+
     const isMobile = width < 768;
     const isTablet = width >= 768 && width < 1024;
+    const API_BASE_URL = 'http://localhost:5000';
 
     useEffect(() => {
         const handleResize = () => setWidth(window.innerWidth);
         window.addEventListener('resize', handleResize);
+        fetchGallery();
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const images = [
-        {
-            url: "https://plus.unsplash.com/premium_photo-1682092585257-58d1c813d9b4?q=80&w=1170&auto=format&fit=crop",
-            title: "Educational Reform",
-            desc: "Empowering rural students through digital literacy."
-        },
-        {
-            url: "https://images.unsplash.com/photo-1652858672796-960164bd632b?q=80&w=1170&auto=format&fit=crop",
-            title: "Environmental Impact",
-            desc: "Sustaining local ecosystems through community action."
-        },
-        {
-            url: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=800",
-            title: "Learning Support",
-            desc: "Bridging the gap in primary education resources."
-        },
-        {
-            url: "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800",
-            title: "Community Growth",
-            desc: "Direct field-level support for local families."
+    const fetchGallery = async () => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/gallery`);
+            const data = await response.json();
+            if (data.status === 'success') {
+                const formattedImages = data.data.map(img => ({
+                    ...img,
+                    url: img.url.startsWith('http') ? img.url : `${API_BASE_URL}${img.url}`
+                }));
+                setImages(formattedImages);
+            }
+        } catch (err) {
+            console.error('Error fetching gallery:', err);
+        } finally {
+            setLoading(false);
         }
-    ];
-
-    const [currentIndex, setCurrentIndex] = useState(0);
+    };
 
     useEffect(() => {
+        if (images.length === 0) return;
         const timer = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
         }, 5000);
@@ -98,45 +98,55 @@ const Gallery = () => {
         }
     };
 
+    if (loading) {
+        return <div style={{ textAlign: 'center', padding: '100px' }}>Loading Gallery...</div>;
+    }
+
     return (
         <div style={styles.mainContainer}>
             <div style={styles.contentWrapper} className="reveal-instant">
                 <section id="gallery">
                     <h2 style={styles.sectionHeader}>Impact Gallery</h2>
-                    <div style={styles.sliderContainer}>
-                        {images.map((img, index) => (
-                            <div
-                                key={index}
-                                style={{
-                                    ...styles.slide,
-                                    backgroundImage: `url(${img.url})`,
-                                    opacity: index === currentIndex ? 1 : 0,
-                                    zIndex: index === currentIndex ? 1 : 0
-                                }}
-                            >
-                                <div style={styles.slideCaption}>
-                                    <h3 style={{ margin: '0 0 8px 0', fontSize: isMobile ? '20px' : '28px', fontWeight: '800', fontFamily: "'Outfit', sans-serif" }}>{img.title}</h3>
-                                    <p style={{ margin: 0, fontSize: isMobile ? '14px' : '16px', opacity: 0.9, lineHeight: 1.5 }}>{img.desc} - Verified Social Service Activity</p>
-                                </div>
-                            </div>
-                        ))}
-                        <div style={{ position: 'absolute', bottom: '25px', right: isMobile ? '20px' : '40px', zIndex: 2, display: 'flex', gap: '10px' }}>
-                            {images.map((_, index) => (
+                    {images.length > 0 ? (
+                        <div style={styles.sliderContainer}>
+                            {images.map((img, index) => (
                                 <div
                                     key={index}
                                     style={{
-                                        width: index === currentIndex ? '30px' : '10px',
-                                        height: '10px',
-                                        borderRadius: '10px',
-                                        background: index === currentIndex ? '#f59e0b' : 'rgba(255,255,255,0.4)',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.3s ease'
+                                        ...styles.slide,
+                                        backgroundImage: `url(${img.url})`,
+                                        opacity: index === currentIndex ? 1 : 0,
+                                        zIndex: index === currentIndex ? 1 : 0
                                     }}
-                                    onClick={() => setCurrentIndex(index)}
-                                />
+                                >
+                                    <div style={styles.slideCaption}>
+                                        <h3 style={{ margin: '0 0 8px 0', fontSize: isMobile ? '20px' : '28px', fontWeight: '800', fontFamily: "'Outfit', sans-serif" }}>{img.title}</h3>
+                                        <p style={{ margin: 0, fontSize: isMobile ? '14px' : '16px', opacity: 0.9, lineHeight: 1.5 }}>{img.desc} - Verified Social Service Activity</p>
+                                    </div>
+                                </div>
                             ))}
+                            <div style={{ position: 'absolute', bottom: '25px', right: isMobile ? '20px' : '40px', zIndex: 2, display: 'flex', gap: '10px' }}>
+                                {images.map((_, index) => (
+                                    <div
+                                        key={index}
+                                        style={{
+                                            width: index === currentIndex ? '30px' : '10px',
+                                            height: '10px',
+                                            borderRadius: '10px',
+                                            background: index === currentIndex ? '#f59e0b' : 'rgba(255,255,255,0.4)',
+                                            cursor: 'pointer',
+                                            transition: 'all 0.3s ease'
+                                        }}
+                                        onClick={() => setCurrentIndex(index)}
+                                    />
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    ) : (
+                        <div style={{ textAlign: 'center', padding: '50px', background: '#f8fafc', borderRadius: '16px' }}>
+                            <p>No images available in the gallery yet.</p>
+                        </div>
+                    )}
                     <div style={{ textAlign: 'center', color: '#64748b', fontSize: '15px' }}>
                         <p>Documenting our journey across the districts of Telangana.</p>
                     </div>

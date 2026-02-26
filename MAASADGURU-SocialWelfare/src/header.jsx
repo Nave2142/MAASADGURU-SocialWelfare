@@ -205,6 +205,7 @@ const Header = () => {
                     <NavLink to="/about" style={({ isActive }) => isActive ? { ...styles.navLink, ...styles.activeLink } : styles.navLink} onClick={handleMenuClick}>About Us</NavLink>
                     <NavLink to="/services" style={({ isActive }) => isActive ? { ...styles.navLink, ...styles.activeLink } : styles.navLink} onClick={handleMenuClick}>Services</NavLink>
                     <NavLink to="/contact" style={({ isActive }) => isActive ? { ...styles.navLink, ...styles.activeLink } : styles.navLink} onClick={handleMenuClick}>Contact Us</NavLink>
+                    <NavLink to="/admin" style={({ isActive }) => isActive ? { ...styles.navLink, ...styles.activeLink } : styles.navLink} onClick={handleMenuClick}>Admin</NavLink>
                     {isMobile && (
                         <NavLink to="/donate" style={{ ...styles.navLink, background: '#f59e0b', color: '#000', textAlign: 'center', marginTop: '20px', marginX: '30px', borderRadius: '8px' }} onClick={handleMenuClick}>DONATE NOW</NavLink>
                     )}

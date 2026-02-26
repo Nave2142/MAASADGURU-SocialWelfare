@@ -8,6 +8,8 @@ const GalleryPage = React.lazy(() => import('./gallery'));
 const AboutUsPage = React.lazy(() => import('./aboutUs'));
 const ServicesPage = React.lazy(() => import('./services'));
 const ContactUsPage = React.lazy(() => import('./contactUs'));
+const AdminLogin = React.lazy(() => import('./AdminLogin'));
+const AdminDashboard = React.lazy(() => import('./AdminDashboard'));
 
 // Loading component for Suspense
 const LoadingSpinner = () => (
@@ -94,12 +96,28 @@ const App = () => {
     }
   };
 
+  const isNoHeaderFooter = (pathname) => {
+    return pathname.startsWith('/admin');
+  };
+
+  const MainLayout = ({ children }) => {
+    const { pathname } = useLocation();
+    const hideLayout = isNoHeaderFooter(pathname);
+
+    return (
+      <div style={styles.container}>
+        {!hideLayout && <Header />}
+        {children}
+        {!hideLayout && <Footer />}
+      </div>
+    );
+  };
+
   return (
     <Router>
       <ScrollToTop />
-      <div style={styles.container}>
-        <Suspense fallback={<LoadingSpinner />}>
-          <Header />
+      <Suspense fallback={<LoadingSpinner />}>
+        <MainLayout>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/gallery" element={<GalleryPage />} />
@@ -107,10 +125,11 @@ const App = () => {
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/contact" element={<ContactUsPage />} />
             <Route path="/donate" element={<Donate />} />
+            <Route path="/admin" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
           </Routes>
-          <Footer />
-        </Suspense>
-      </div>
+        </MainLayout>
+      </Suspense>
     </Router>
   );
 };
