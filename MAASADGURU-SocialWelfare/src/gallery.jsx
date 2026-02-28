@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import environment from './environment.json';
 
 const Gallery = () => {
     const [width, setWidth] = useState(window.innerWidth);
@@ -8,7 +9,7 @@ const Gallery = () => {
 
     const isMobile = width < 768;
     const isTablet = width >= 768 && width < 1024;
-    const API_BASE_URL = 'http://localhost:5000';
+    const API_BASE_URL = environment.api_base_url;
 
     useEffect(() => {
         const handleResize = () => setWidth(window.innerWidth);
@@ -114,18 +115,86 @@ const Gallery = () => {
                                     key={index}
                                     style={{
                                         ...styles.slide,
-                                        backgroundImage: `url(${img.url})`,
                                         opacity: index === currentIndex ? 1 : 0,
-                                        zIndex: index === currentIndex ? 1 : 0
+                                        zIndex: index === currentIndex ? 1 : 0,
+                                        backgroundColor: '#000'
                                     }}
                                 >
-                                    <div style={styles.slideCaption}>
-                                        <h3 style={{ margin: '0 0 8px 0', fontSize: isMobile ? '20px' : '28px', fontWeight: '800', fontFamily: "'Outfit', sans-serif" }}>{img.title}</h3>
-                                        <p style={{ margin: 0, fontSize: isMobile ? '14px' : '16px', opacity: 0.9, lineHeight: 1.5 }}>{img.desc} - Verified Social Service Activity</p>
+                                    {img.type === 'video' ? (
+                                        <video
+                                            src={img.url}
+                                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                            autoPlay={index === currentIndex}
+                                            muted
+                                            loop
+                                            playsInline
+                                        />
+                                    ) : (
+                                        <div style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            backgroundImage: `url(${img.url})`,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center'
+                                        }} />
+                                    )}
+                                    <div style={{
+                                        position: 'absolute',
+                                        bottom: 0,
+                                        left: 0,
+                                        width: '100%',
+                                        background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)',
+                                        padding: isMobile ? '60px 20px 30px' : '100px 50px 50px',
+                                        zIndex: 5,
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                    }}>
+                                        <h3 style={{
+                                            margin: '0 0 12px 0',
+                                            fontSize: isMobile ? '22px' : '40px',
+                                            fontWeight: '900',
+                                            fontFamily: "'Outfit', sans-serif",
+                                            color: '#fff',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '1px',
+                                            textShadow: '0 2px 10px rgba(0,0,0,0.3)',
+                                            lineHeight: 1.2
+                                        }}>
+                                            {img.title}
+                                        </h3>
+                                        <div style={{
+                                            height: '4px',
+                                            width: isMobile ? '40px' : '60px',
+                                            background: '#f59e0b',
+                                            marginBottom: '15px',
+                                            borderRadius: '2px'
+                                        }}></div>
+                                        <p style={{
+                                            margin: 0,
+                                            fontSize: isMobile ? '15px' : '18px',
+                                            color: 'rgba(255,255,255,0.95)',
+                                            lineHeight: 1.6,
+                                            fontWeight: '500',
+                                            maxWidth: '800px',
+                                            fontFamily: "'Inter', sans-serif"
+                                        }}>
+                                            {img.desc}
+                                            <span style={{
+                                                display: 'block',
+                                                marginTop: '10px',
+                                                fontSize: '12px',
+                                                color: '#f59e0b',
+                                                fontWeight: '700',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '1px'
+                                            }}>
+                                                Verified Impact Activities in Telangana
+                                            </span>
+                                        </p>
                                     </div>
                                 </div>
                             ))}
-                            <div style={{ position: 'absolute', bottom: '25px', right: isMobile ? '20px' : '40px', zIndex: 2, display: 'flex', gap: '10px' }}>
+                            <div style={{ position: 'absolute', bottom: '25px', right: isMobile ? '20px' : '40px', zIndex: 10, display: 'flex', gap: '10px' }}>
                                 {images.map((_, index) => (
                                     <div
                                         key={index}

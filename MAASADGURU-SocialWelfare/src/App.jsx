@@ -96,19 +96,14 @@ const App = () => {
     }
   };
 
-  const isNoHeaderFooter = (pathname) => {
-    return pathname.startsWith('/admin');
-  };
+
 
   const MainLayout = ({ children }) => {
-    const { pathname } = useLocation();
-    const hideLayout = isNoHeaderFooter(pathname);
-
     return (
       <div style={styles.container}>
-        {!hideLayout && <Header />}
+        <Header />
         {children}
-        {!hideLayout && <Footer />}
+        <Footer />
       </div>
     );
   };
@@ -125,7 +120,7 @@ const App = () => {
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/contact" element={<ContactUsPage />} />
             <Route path="/donate" element={<Donate />} />
-            <Route path="/admin" element={<AdminLogin />} />
+            <Route path="/login" element={<AdminLogin />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
           </Routes>
         </MainLayout>

@@ -1,24 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import environment from './environment.json';
 
 const AdminDashboard = () => {
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
     const [file, setFile] = useState(null);
     const [photos, setPhotos] = useState([]);
+    const [inquiries, setInquiries] = useState([]);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
-    const API_BASE_URL = 'http://localhost:5000';
+    const API_BASE_URL = environment.api_base_url;
 
     useEffect(() => {
         const token = localStorage.getItem('adminToken');
         if (!token) {
-            navigate('/admin');
+            navigate('/login');
         }
         fetchPhotos();
+        fetchInquiries();
     }, [navigate]);
+
+    const fetchInquiries = async () => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/inquiry`);
+            const data = await response.json();
+            if (data.status === 'success') {
+                setInquiries(data.data);
+            }
+        } catch (err) {
+            console.error('Error fetching inquiries:', err);
+        }
+    };
 
     const fetchPhotos = async () => {
         try {
@@ -35,7 +50,7 @@ const AdminDashboard = () => {
     const handleLogout = () => {
         localStorage.removeItem('adminToken');
         localStorage.removeItem('adminUser');
-        navigate('/admin');
+        navigate('/login');
     };
 
     const handleUpload = async (e) => {
@@ -94,11 +109,11 @@ const AdminDashboard = () => {
 
     const styles = {
         container: {
-            padding: '40px',
+            padding: '60px 20px',
             maxWidth: '1200px',
             margin: '0 auto',
-            background: '#f8fafc',
-            minHeight: '100vh',
+            background: '#f5f5f5',
+            minHeight: '70vh',
         },
         header: {
             display: 'flex',
@@ -180,13 +195,19 @@ const AdminDashboard = () => {
             padding: '15px',
         },
         cardTitle: {
-            fontSize: '16px',
-            fontWeight: '700',
-            marginBottom: '5px',
+            fontSize: '15px',
+            fontWeight: '800',
+            marginBottom: '8px',
+            color: '#1e3a8a',
+            fontFamily: "'Outfit', sans-serif",
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px'
         },
         cardDesc: {
             fontSize: '13px',
             color: '#64748b',
+            lineHeight: '1.5',
+            fontFamily: "'Inter', sans-serif"
         },
         deleteBtn: {
             position: 'absolute',
@@ -208,39 +229,74 @@ const AdminDashboard = () => {
 
     return (
         <div style={styles.container}>
-            <header style={styles.header}>
-                <h1 style={styles.title}>Admin Dashboard</h1>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
+                <h1 style={styles.title}>Dashboard</h1>
                 <button onClick={handleLogout} style={styles.logoutBtn}>Logout</button>
-            </header>
+            </div>
 
             <div style={styles.section}>
-                <h2 style={styles.sectionTitle}>Add New Photo</h2>
+                <h2 style={styles.sectionTitle}>Add New Media (Photo/Video)</h2>
                 <form style={styles.form} onSubmit={handleUpload}>
                     <input
                         type="file"
                         onChange={(e) => setFile(e.target.files[0])}
                         style={styles.input}
-                        accept="image/*"
+                        accept="image/*,video/*"
                     />
                     <input
                         type="text"
-                        placeholder="Image Title"
+                        placeholder="Title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         style={styles.input}
                     />
                     <input
                         type="text"
-                        placeholder="Image Description"
+                        placeholder="Description"
                         value={desc}
                         onChange={(e) => setDesc(e.target.value)}
                         style={styles.input}
                     />
                     <button type="submit" style={styles.uploadBtn} disabled={loading}>
-                        {loading ? 'Uploading...' : 'Upload Image'}
+                        {loading ? 'Uploading...' : 'Upload Media'}
                     </button>
                 </form>
                 {message && <p style={{ marginTop: '15px', color: message.includes('success') ? '#10b981' : '#ef4444' }}>{message}</p>}
+            </div>
+
+            <div style={styles.section}>
+                <h2 style={styles.sectionTitle}>Contact Inquiries</h2>
+                <div style={{ overflowX: 'auto' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
+                        <thead>
+                            <tr style={{ borderBottom: '2px solid #e2e8f0', textAlign: 'left' }}>
+                                <th style={{ padding: '12px' }}>Date</th>
+                                <th style={{ padding: '12px' }}>Name</th>
+                                <th style={{ padding: '12px' }}>Contact</th>
+                                <th style={{ padding: '12px' }}>Subject</th>
+                                <th style={{ padding: '12px' }}>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {inquiries.length > 0 ? inquiries.map((mq) => (
+                                <tr key={mq.id} style={{ borderBottom: '1px solid #e2e8f0' }}>
+                                    <td style={{ padding: '12px', fontSize: '13px' }}>{new Date(mq.created_at).toLocaleDateString()}</td>
+                                    <td style={{ padding: '12px', fontWeight: '600' }}>{mq.full_name}</td>
+                                    <td style={{ padding: '12px', fontSize: '13px' }}>
+                                        <div>{mq.email}</div>
+                                        <div style={{ color: '#64748b' }}>{mq.mobile}</div>
+                                    </td>
+                                    <td style={{ padding: '12px' }}>{mq.subject}</td>
+                                    <td style={{ padding: '12px', fontSize: '13px', color: '#475569' }}>{mq.message}</td>
+                                </tr>
+                            )) : (
+                                <tr>
+                                    <td colSpan="5" style={{ padding: '20px', textAlign: 'center', color: '#64748b' }}>No inquiries found</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <h2 style={{ ...styles.sectionTitle, marginBottom: '20px' }}>Current Gallery</h2>
@@ -251,7 +307,11 @@ const AdminDashboard = () => {
                     return (
                         <div key={photo.id} style={styles.card}>
                             <button onClick={() => handleDelete(photo.id)} style={styles.deleteBtn}>×</button>
-                            <img src={fullUrl} alt={photo.title} style={styles.cardImg} />
+                            {photo.type === 'video' ? (
+                                <video src={fullUrl} style={styles.cardImg} controls muted />
+                            ) : (
+                                <img src={fullUrl} alt={photo.title} style={styles.cardImg} />
+                            )}
                             <div style={styles.cardBody}>
                                 <h3 style={styles.cardTitle}>{photo.title}</h3>
                                 <p style={styles.cardDesc}>{photo.desc}</p>

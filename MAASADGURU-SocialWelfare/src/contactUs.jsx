@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MapComponent from './MapComponent';
+import environment from './environment.json';
 
 const ContactUs = () => {
     const [width, setWidth] = useState(window.innerWidth);
@@ -11,6 +12,48 @@ const ContactUs = () => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    const [formData, setFormData] = useState({
+        full_name: '',
+        email: '',
+        mobile: '',
+        subject: 'General Inquiry',
+        message: ''
+    });
+    const [status, setStatus] = useState({ type: '', message: '' });
+    const API_BASE_URL = environment.api_base_url;
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setStatus({ type: 'loading', message: 'Sending inquiry...' });
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/inquiry`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            const data = await response.json();
+            if (response.status === 201 || data.status === 'success') {
+                setStatus({ type: 'success', message: 'Inquiry sent successfully! We will contact you soon.' });
+                setFormData({
+                    full_name: '',
+                    email: '',
+                    mobile: '',
+                    subject: 'General Inquiry',
+                    message: ''
+                });
+            } else {
+                setStatus({ type: 'error', message: data.error || 'Failed to send inquiry.' });
+            }
+        } catch (err) {
+            setStatus({ type: 'error', message: 'Could not connect to the server.' });
+        }
+    };
 
     const styles = {
         mainContainer: {
@@ -162,22 +205,74 @@ const ContactUs = () => {
 
                         <div id="inquiry-form" style={styles.formCard} className="reveal">
                             <h3 style={{ fontSize: '24px', color: '#1e3a8a', marginBottom: '30px', fontWeight: '800', fontFamily: "'Outfit', sans-serif" }}>Direct Inquiry Form</h3>
-                            <form onSubmit={(e) => { e.preventDefault(); alert('Request sent to Maasadguru Social Service leadership. We will contact you shortly.'); }}>
-                                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '20px' }}>
-                                    <input type="text" placeholder="Full Name" style={styles.input} required />
-                                    <input type="email" placeholder="Email Address" style={styles.input} required />
+                            {status.message && (
+                                <div style={{
+                                    padding: '15px',
+                                    marginBottom: '20px',
+                                    borderRadius: '10px',
+                                    background: status.type === 'error' ? '#fee2e2' : (status.type === 'success' ? '#dcfce7' : '#fef9c3'),
+                                    color: status.type === 'error' ? '#ef4444' : (status.type === 'success' ? '#16a34a' : '#ca8a04'),
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    textAlign: 'center'
+                                }}>
+                                    {status.message}
                                 </div>
-                                <input type="tel" placeholder="Mobile Number" style={styles.input} required />
-                                <select style={{ ...styles.input, background: '#fff' }}>
-                                    <option>Select Subject</option>
-                                    <option>Volunteer Registration</option>
-                                    <option>Scholarship Inquiry</option>
-                                    <option>Medical Support</option>
-                                    <option>Donation Transparency</option>
-                                    <option>General Inquiry</option>
+                            )}
+                            <form onSubmit={handleSubmit}>
+                                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '20px' }}>
+                                    <input
+                                        type="text"
+                                        name="full_name"
+                                        placeholder="Full Name"
+                                        style={styles.input}
+                                        value={formData.full_name}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        placeholder="Email Address"
+                                        style={styles.input}
+                                        value={formData.email}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                                <input
+                                    type="tel"
+                                    name="mobile"
+                                    placeholder="Mobile Number"
+                                    style={styles.input}
+                                    value={formData.mobile}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                                <select
+                                    name="subject"
+                                    style={{ ...styles.input, background: '#fff' }}
+                                    value={formData.subject}
+                                    onChange={handleInputChange}
+                                >
+                                    <option value="General Inquiry">Select Subject</option>
+                                    <option value="Volunteer Registration">Volunteer Registration</option>
+                                    <option value="Scholarship Inquiry">Scholarship Inquiry</option>
+                                    <option value="Medical Support">Medical Support</option>
+                                    <option value="Donation Transparency">Donation Transparency</option>
+                                    <option value="General Inquiry">General Inquiry</option>
                                 </select>
-                                <textarea placeholder="How can we help you?" style={{ ...styles.input, height: '150px', resize: 'none' }} required></textarea>
-                                <button type="submit" style={styles.submitBtn}>Submit Inquiry</button>
+                                <textarea
+                                    name="message"
+                                    placeholder="How can we help you?"
+                                    style={{ ...styles.input, height: '150px', resize: 'none' }}
+                                    value={formData.message}
+                                    onChange={handleInputChange}
+                                    required
+                                ></textarea>
+                                <button type="submit" style={styles.submitBtn} disabled={status.type === 'loading'}>
+                                    {status.type === 'loading' ? 'Sending...' : 'Submit Inquiry'}
+                                </button>
                             </form>
                         </div>
                     </div>
