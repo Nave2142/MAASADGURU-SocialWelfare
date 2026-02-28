@@ -4,7 +4,6 @@ import environment from './environment.json';
 const Gallery = () => {
     const [width, setWidth] = useState(window.innerWidth);
     const [images, setImages] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
     const [loading, setLoading] = useState(true);
 
     const isMobile = width < 768;
@@ -36,13 +35,6 @@ const Gallery = () => {
         }
     };
 
-    useEffect(() => {
-        if (images.length === 0) return;
-        const timer = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-        }, 5000);
-        return () => clearInterval(timer);
-    }, [images.length]);
 
     const styles = {
         mainContainer: {
@@ -69,33 +61,38 @@ const Gallery = () => {
             textTransform: 'uppercase',
             fontWeight: '800'
         },
-        sliderContainer: {
-            position: 'relative',
-            width: '100%',
-            height: isMobile ? '300px' : (isTablet ? '400px' : '550px'),
-            overflow: 'hidden',
-            borderRadius: '24px',
-            marginBottom: '40px',
-            background: '#000',
-            boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)'
-        },
-        slide: {
-            width: '100%',
-            height: '100%',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            transition: 'opacity 1s ease-in-out',
-            position: 'absolute',
-            top: 0,
-            left: 0,
+        itemContainer: {
             display: 'flex',
-            alignItems: 'flex-end',
+            flexDirection: isMobile ? 'column' : 'row',
+            alignItems: 'center',
+            marginBottom: '50px',
         },
-        slideCaption: {
-            background: 'linear-gradient(transparent, rgba(0, 0, 0, 0.85))',
-            color: '#fff',
+        itemImageWrapper: {
+            flex: '0 0 45%',
+            maxWidth: '45%',
+        },
+        itemImage: {
             width: '100%',
-            padding: isMobile ? '40px 20px 20px' : '80px 40px 40px',
+            borderRadius: '16px',
+            objectFit: 'cover',
+        },
+        itemText: {
+            flex: '1',
+            padding: isMobile ? '20px 0' : '0 30px',
+        },
+        itemTitle: {
+            fontSize: isMobile ? '22px' : '28px',
+            color: '#1e3a8a',
+            fontFamily: "'Outfit', sans-serif",
+            fontWeight: '800',
+            textTransform: 'uppercase',
+            marginBottom: '10px',
+        },
+        itemDesc: {
+            fontSize: isMobile ? '15px' : '18px',
+            lineHeight: 1.6,
+            color: '#475569',
+            fontFamily: "'Inter', sans-serif",
         }
     };
 
@@ -109,108 +106,39 @@ const Gallery = () => {
                 <section id="gallery">
                     <h2 style={styles.sectionHeader}>Impact Gallery</h2>
                     {images.length > 0 ? (
-                        <div style={styles.sliderContainer}>
-                            {images.map((img, index) => (
-                                <div
-                                    key={index}
-                                    style={{
-                                        ...styles.slide,
-                                        opacity: index === currentIndex ? 1 : 0,
-                                        zIndex: index === currentIndex ? 1 : 0,
-                                        backgroundColor: '#000'
-                                    }}
-                                >
-                                    {img.type === 'video' ? (
-                                        <video
-                                            src={img.url}
-                                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                            autoPlay={index === currentIndex}
-                                            muted
-                                            loop
-                                            playsInline
-                                        />
-                                    ) : (
-                                        <div style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            backgroundImage: `url(${img.url})`,
-                                            backgroundSize: 'cover',
-                                            backgroundPosition: 'center'
-                                        }} />
-                                    )}
-                                    <div style={{
-                                        position: 'absolute',
-                                        bottom: 0,
-                                        left: 0,
-                                        width: '100%',
-                                        background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)',
-                                        padding: isMobile ? '60px 20px 30px' : '100px 50px 50px',
-                                        zIndex: 5,
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                    }}>
-                                        <h3 style={{
-                                            margin: '0 0 12px 0',
-                                            fontSize: isMobile ? '22px' : '40px',
-                                            fontWeight: '900',
-                                            fontFamily: "'Outfit', sans-serif",
-                                            color: '#fff',
-                                            textTransform: 'uppercase',
-                                            letterSpacing: '1px',
-                                            textShadow: '0 2px 10px rgba(0,0,0,0.3)',
-                                            lineHeight: 1.2
-                                        }}>
-                                            {img.title}
-                                        </h3>
-                                        <div style={{
-                                            height: '4px',
-                                            width: isMobile ? '40px' : '60px',
-                                            background: '#f59e0b',
-                                            marginBottom: '15px',
-                                            borderRadius: '2px'
-                                        }}></div>
-                                        <p style={{
-                                            margin: 0,
-                                            fontSize: isMobile ? '15px' : '18px',
-                                            color: 'rgba(255,255,255,0.95)',
-                                            lineHeight: 1.6,
-                                            fontWeight: '500',
-                                            maxWidth: '800px',
-                                            fontFamily: "'Inter', sans-serif"
-                                        }}>
-                                            {img.desc}
-                                            <span style={{
-                                                display: 'block',
-                                                marginTop: '10px',
-                                                fontSize: '12px',
-                                                color: '#f59e0b',
-                                                fontWeight: '700',
-                                                textTransform: 'uppercase',
-                                                letterSpacing: '1px'
-                                            }}>
-                                                Verified Impact Activities in Telangana
-                                            </span>
-                                        </p>
-                                    </div>
-                                </div>
-                            ))}
-                            <div style={{ position: 'absolute', bottom: '25px', right: isMobile ? '20px' : '40px', zIndex: 10, display: 'flex', gap: '10px' }}>
-                                {images.map((_, index) => (
+                        <>
+                            {images.map((img, index) => {
+                                const reverse = !isMobile && index % 2 === 1;
+                                return (
                                     <div
                                         key={index}
                                         style={{
-                                            width: index === currentIndex ? '30px' : '10px',
-                                            height: '10px',
-                                            borderRadius: '10px',
-                                            background: index === currentIndex ? '#f59e0b' : 'rgba(255,255,255,0.4)',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.3s ease'
+                                            ...styles.itemContainer,
+                                            flexDirection: isMobile ? 'column' : (reverse ? 'row-reverse' : 'row')
                                         }}
-                                        onClick={() => setCurrentIndex(index)}
-                                    />
-                                ))}
-                            </div>
-                        </div>
+                                    >
+                                        <div style={styles.itemImageWrapper}>
+                                            {img.type === 'video' ? (
+                                                <video
+                                                    src={img.url}
+                                                    style={styles.itemImage}
+                                                    controls
+                                                    muted
+                                                    loop
+                                                    playsInline
+                                                />
+                                            ) : (
+                                                <img src={img.url} alt={img.title} style={styles.itemImage} />
+                                            )}
+                                        </div>
+                                        <div style={styles.itemText}>
+                                            <h3 style={styles.itemTitle}>{img.title}</h3>
+                                            <p style={styles.itemDesc}>{img.desc}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </>
                     ) : (
                         <div style={{ textAlign: 'center', padding: '50px', background: '#f8fafc', borderRadius: '16px' }}>
                             <p>No images available in the gallery yet.</p>

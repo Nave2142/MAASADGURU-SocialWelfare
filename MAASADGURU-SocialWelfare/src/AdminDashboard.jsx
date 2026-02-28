@@ -10,6 +10,7 @@ const AdminDashboard = () => {
     const [inquiries, setInquiries] = useState([]);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
+    const [view, setView] = useState('posts'); // 'posts' | 'new' | 'contacts'
     const navigate = useNavigate();
 
     const API_BASE_URL = environment.api_base_url;
@@ -19,6 +20,7 @@ const AdminDashboard = () => {
         if (!token) {
             navigate('/login');
         }
+        // initial fetch
         fetchPhotos();
         fetchInquiries();
     }, [navigate]);
@@ -80,6 +82,7 @@ const AdminDashboard = () => {
                 setDesc('');
                 setFile(null);
                 fetchPhotos();
+                setView('posts');
             } else {
                 setMessage(data.message || 'Upload failed');
             }
@@ -109,11 +112,37 @@ const AdminDashboard = () => {
 
     const styles = {
         container: {
-            padding: '60px 20px',
+            display: 'flex',
+            minHeight: '100vh',
+            background: '#f5f5f5',
+        },
+        sidebar: {
+            width: '200px',
+            background: '#1e3a8a',
+            color: '#fff',
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '20px 10px',
+        },
+        sideButton: {
+            padding: '12px 16px',
+            margin: '8px 0',
+            background: 'transparent',
+            color: '#fff',
+            border: 'none',
+            textAlign: 'left',
+            cursor: 'pointer',
+            fontSize: '16px',
+            borderRadius: '6px',
+        },
+        activeSide: {
+            background: '#374151',
+        },
+        content: {
+            flex: 1,
+            padding: '40px 20px',
             maxWidth: '1200px',
             margin: '0 auto',
-            background: '#f5f5f5',
-            minHeight: '70vh',
         },
         header: {
             display: 'flex',
@@ -227,99 +256,160 @@ const AdminDashboard = () => {
         }
     };
 
+    const renderPostsTable = () => (
+        <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <h2 style={styles.sectionTitle}>Posts</h2>
+                <button
+                    style={styles.uploadBtn}
+                    onClick={() => setView('new')}
+                >
+                    New Post
+                </button>
+            </div>
+            <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead>
+                        <tr style={{ borderBottom: '2px solid #e2e8f0', textAlign: 'left' }}>
+                            <th style={{ padding: '12px' }}>Title</th>
+                            <th style={{ padding: '12px' }}>Type</th>
+                            <th style={{ padding: '12px' }}>Description</th>
+                            <th style={{ padding: '12px' }}>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {photos.length > 0 ? (
+                            photos.map(p => (
+                                <tr key={p.id} style={{ borderBottom: '1px solid #e2e8f0' }}>
+                                    <td style={{ padding: '12px', fontWeight: '600' }}>{p.title}</td>
+                                    <td style={{ padding: '12px' }}>{p.type}</td>
+                                    <td style={{ padding: '12px', color: '#475569' }}>{p.desc}</td>
+                                    <td style={{ padding: '12px' }}>
+                                        <button
+                                            onClick={() => handleDelete(p.id)}
+                                            style={{ ...styles.deleteBtn, position: 'static', width: 'auto', height: 'auto', padding: '6px 10px' }}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="4" style={{ padding: '20px', textAlign: 'center', color: '#64748b' }}>No posts available</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+
+    const renderNewPostForm = () => (
+        <div style={styles.section}>
+            <h2 style={styles.sectionTitle}>Add New Media (Photo/Video)</h2>
+            <form style={styles.form} onSubmit={handleUpload}>
+                <input
+                    type="file"
+                    onChange={(e) => setFile(e.target.files[0])}
+                    style={styles.input}
+                    accept="image/*,video/*"
+                />
+                <input
+                    type="text"
+                    placeholder="Title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    style={styles.input}
+                />
+                <input
+                    type="text"
+                    placeholder="Description"
+                    value={desc}
+                    onChange={(e) => setDesc(e.target.value)}
+                    style={styles.input}
+                />
+                <button type="submit" style={styles.uploadBtn} disabled={loading}>
+                    {loading ? 'Uploading...' : 'Upload Media'}
+                </button>
+            </form>
+            {message && <p style={{ marginTop: '15px', color: message.includes('success') ? '#10b981' : '#ef4444' }}>{message}</p>}
+        </div>
+    );
+
+    const renderContacts = () => (
+        <div style={styles.section}>
+            <h2 style={styles.sectionTitle}>Contact Inquiries</h2>
+            <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
+                    <thead>
+                        <tr style={{ borderBottom: '2px solid #e2e8f0', textAlign: 'left' }}>
+                            <th style={{ padding: '12px' }}>Date</th>
+                            <th style={{ padding: '12px' }}>Name</th>
+                            <th style={{ padding: '12px' }}>Contact</th>
+                            <th style={{ padding: '12px' }}>Subject</th>
+                            <th style={{ padding: '12px' }}>Message</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {inquiries.length > 0 ? inquiries.map((mq) => (
+                            <tr key={mq.id} style={{ borderBottom: '1px solid #e2e8f0' }}>
+                                <td style={{ padding: '12px', fontSize: '13px' }}>{new Date(mq.created_at).toLocaleDateString()}</td>
+                                <td style={{ padding: '12px', fontWeight: '600' }}>{mq.full_name}</td>
+                                <td style={{ padding: '12px', fontSize: '13px' }}>
+                                    <div>{mq.email}</div>
+                                    <div style={{ color: '#64748b' }}>{mq.mobile}</div>
+                                </td>
+                                <td style={{ padding: '12px' }}>{mq.subject}</td>
+                                <td style={{ padding: '12px', fontSize: '13px', color: '#475569' }}>{mq.message}</td>
+                            </tr>
+                        )) : (
+                            <tr>
+                                <td colSpan="5" style={{ padding: '20px', textAlign: 'center', color: '#64748b' }}>No inquiries found</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+
     return (
         <div style={styles.container}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-                <h1 style={styles.title}>Dashboard</h1>
-                <button onClick={handleLogout} style={styles.logoutBtn}>Logout</button>
-            </div>
-
-            <div style={styles.section}>
-                <h2 style={styles.sectionTitle}>Add New Media (Photo/Video)</h2>
-                <form style={styles.form} onSubmit={handleUpload}>
-                    <input
-                        type="file"
-                        onChange={(e) => setFile(e.target.files[0])}
-                        style={styles.input}
-                        accept="image/*,video/*"
-                    />
-                    <input
-                        type="text"
-                        placeholder="Title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        style={styles.input}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Description"
-                        value={desc}
-                        onChange={(e) => setDesc(e.target.value)}
-                        style={styles.input}
-                    />
-                    <button type="submit" style={styles.uploadBtn} disabled={loading}>
-                        {loading ? 'Uploading...' : 'Upload Media'}
-                    </button>
-                </form>
-                {message && <p style={{ marginTop: '15px', color: message.includes('success') ? '#10b981' : '#ef4444' }}>{message}</p>}
-            </div>
-
-            <div style={styles.section}>
-                <h2 style={styles.sectionTitle}>Contact Inquiries</h2>
-                <div style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
-                        <thead>
-                            <tr style={{ borderBottom: '2px solid #e2e8f0', textAlign: 'left' }}>
-                                <th style={{ padding: '12px' }}>Date</th>
-                                <th style={{ padding: '12px' }}>Name</th>
-                                <th style={{ padding: '12px' }}>Contact</th>
-                                <th style={{ padding: '12px' }}>Subject</th>
-                                <th style={{ padding: '12px' }}>Message</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {inquiries.length > 0 ? inquiries.map((mq) => (
-                                <tr key={mq.id} style={{ borderBottom: '1px solid #e2e8f0' }}>
-                                    <td style={{ padding: '12px', fontSize: '13px' }}>{new Date(mq.created_at).toLocaleDateString()}</td>
-                                    <td style={{ padding: '12px', fontWeight: '600' }}>{mq.full_name}</td>
-                                    <td style={{ padding: '12px', fontSize: '13px' }}>
-                                        <div>{mq.email}</div>
-                                        <div style={{ color: '#64748b' }}>{mq.mobile}</div>
-                                    </td>
-                                    <td style={{ padding: '12px' }}>{mq.subject}</td>
-                                    <td style={{ padding: '12px', fontSize: '13px', color: '#475569' }}>{mq.message}</td>
-                                </tr>
-                            )) : (
-                                <tr>
-                                    <td colSpan="5" style={{ padding: '20px', textAlign: 'center', color: '#64748b' }}>No inquiries found</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+            <nav style={styles.sidebar}>
+                <button
+                    style={{
+                        ...styles.sideButton,
+                        ...(view === 'posts' ? styles.activeSide : {})
+                    }}
+                    onClick={() => setView('posts')}
+                >
+                    Posts
+                </button>
+                <button
+                    style={{
+                        ...styles.sideButton,
+                        ...(view === 'contacts' ? styles.activeSide : {})
+                    }}
+                    onClick={() => setView('contacts')}
+                >
+                    Contacts
+                </button>
+                <button
+                    style={styles.sideButton}
+                    onClick={handleLogout}
+                >
+                    Logout
+                </button>
+            </nav>
+            <main style={styles.content}>
+                <div style={styles.header}>
+                    <h1 style={styles.title}>Dashboard</h1>
                 </div>
-            </div>
-
-            <h2 style={{ ...styles.sectionTitle, marginBottom: '20px' }}>Current Gallery</h2>
-            <div style={styles.grid}>
-                {photos.map((photo) => {
-                    // Correctly form the full URL for display
-                    const fullUrl = photo.url.startsWith('http') ? photo.url : `${API_BASE_URL}${photo.url}`;
-                    return (
-                        <div key={photo.id} style={styles.card}>
-                            <button onClick={() => handleDelete(photo.id)} style={styles.deleteBtn}>×</button>
-                            {photo.type === 'video' ? (
-                                <video src={fullUrl} style={styles.cardImg} controls muted />
-                            ) : (
-                                <img src={fullUrl} alt={photo.title} style={styles.cardImg} />
-                            )}
-                            <div style={styles.cardBody}>
-                                <h3 style={styles.cardTitle}>{photo.title}</h3>
-                                <p style={styles.cardDesc}>{photo.desc}</p>
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
+                {view === 'posts' && renderPostsTable()}
+                {view === 'new' && renderNewPostForm()}
+                {view === 'contacts' && renderContacts()}
+            </main>
         </div>
     );
 };
